@@ -53,7 +53,7 @@
                         <div class="form-group row">
                             <label for="prix" class="col-md-4 col-form-label text-md-right">{{ __('Prix') }}</label>
                             <div class="col-md-6">
-                                <p class="form-control">{{ $produit->prix }} €</p>
+                                <p class="form-control">{{ $produit->prix }} Frans CFA</p>
                             </div>
                         </div>
 

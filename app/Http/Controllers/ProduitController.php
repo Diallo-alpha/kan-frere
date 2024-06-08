@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -15,7 +16,8 @@ class ProduitController extends Controller
 
     public function ajouterProduit()
     {
-        return view('utilisateurs.admins.ajouterProduit');
+        $categories = Categorie::all();
+        return view('utilisateurs.admins.ajouterProduit', compact('categories'));
     }
 
     public function ajoutTraitement(Request $request)

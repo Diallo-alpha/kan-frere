@@ -44,7 +44,16 @@
                 <label for="prix">Prix</label>
                 <input id="prix" class="form-control" type="number" name="prix" value="{{ old('prix') }}" required>
             </div>
-
+            {{-- selectionner un categorie --}}
+            <div class="form-group">
+                <label for="categorie_id">Catégorie</label>
+                <select id="categorie_id" class="form-control" name="categorie_id">
+                    <option value="">Sélectionnez une catégorie</option>
+                    @foreach ($categories as $categorie)
+                        <option value="{{ $categorie->id }}">{{ $categorie->libelle }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
     </div>

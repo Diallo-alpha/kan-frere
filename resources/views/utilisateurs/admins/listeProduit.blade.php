@@ -19,6 +19,7 @@
                     <th>Image</th>
                     <th>État</th>
                     <th>Prix</th>
+                    <th>Categorie</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,7 +32,8 @@
                         <td>{{ $produit->description }}</td>
                         <td><img src="{{ asset('images/' . $produit->image) }}" alt="Image du produit" width="50"></td>
                         <td>{{ $produit->etat }}</td>
-                        <td>{{ $produit->prix }} €</td>
+                        <td>{{ $produit->prix }} Frans CFA</td>
+                        <td>{{ $produit->categorie ? $produit->categorie->libelle : 'null' }}</td>
                         <td>
                             <a href="{{ route('produits.modifier', $produit->id) }}" class="btn btn-warning">Modifier</a>
                             <form action="{{ route('produits.supprimer', $produit->id) }}" method="POST" style="display:inline-block;">
