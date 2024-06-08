@@ -15,7 +15,7 @@ class UserController extends Controller
         return view('utilisateurs.inscription');
     }
 
-    public function enregister(Request $request)
+    public function enregistrer(Request $request)
     {
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -53,7 +53,7 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('/inscription');
+            return redirect()->route('produits.list');
         }
 
         return back()->withErrors([
