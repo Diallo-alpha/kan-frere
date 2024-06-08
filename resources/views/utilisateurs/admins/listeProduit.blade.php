@@ -39,7 +39,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Supprimer</button>
                             </form>
-                            <a href="{{ route('produits.show', $produit->id) }}" class="btn btn-info">Voir Détails</a>
+                            <a href="{{ route('produits.detaillesProduit', $produit->id) }}" class="btn btn-info">Voir Détails</a>
                         </td>
                     </tr>
                 @endforeach

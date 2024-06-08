@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Ajouter un Produit</h2>
-        <form method="POST" action="{{ route('ajoutTraitement') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('ajoutTraitement') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
