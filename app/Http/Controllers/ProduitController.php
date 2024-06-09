@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProduitController extends Controller
 {
+    public function accueilProduits()
+    {
+        $produits = Produit::with('categorie')->get();
+        return view('visiteurs.accueil', compact('produits'));
+    }
     public function voirPlus()
     {
         $produits = Produit::all();
@@ -60,8 +65,10 @@ class ProduitController extends Controller
     public function modifier($id)
     {
         $produit = Produit::findOrFail($id);
-        return view('utilisateurs.admins.ModifierProduit', compact('produit'));
+        $categories = Categorie::all();
+        return view('utilisateurs.admins.ModifierProduit', compact('produit', 'categories'));
     }
+
 
     public function modifierProduit(Request $request, $id)
     {
