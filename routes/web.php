@@ -23,16 +23,16 @@ Route::get('/admins/ajouter', [ProduitController::class, 'ajouterProduit'])->nam
 Route::post('/produits', [ProduitController::class, 'traiterAjoutProduit'])->name('traiterAjoutProduit');
 
 // Route pour afficher le formulaire de modification d'un produit existant
-Route::get('/produits/{id}/edit', [ProduitController::class, 'modifierProduitForm'])->name('modifierProduitForm');
+Route::get('/produits/{id}/edit', [ProduitController::class, 'modifier'])->name('modifierProduitForm');
 
 // Route pour traiter la soumission du formulaire de modification d'un produit existant
-Route::put('/produits/{id}', [ProduitController::class, 'traiterModificationProduit'])->name('traiterModificationProduit');
+Route::put('/produits/{id}', [ProduitController::class, 'modifierProduit'])->name('traiterModificationProduit');
 
 // Route pour gérer la demande de suppression d'un produit
 Route::delete('/produits/{id}', [ProduitController::class, 'supprimerProduit'])->name('supprimerProduit');
 
 // Route pour afficher les détails d'un produit
-Route::get('/produits/{id}/details', [ProduitController::class, 'afficherDetailsProduit'])->name('afficherDetailsProduit');
+Route::get('/produits/{id}/details', [ProduitController::class, 'detaillesProduit'])->name('afficherDetailsProduit');
 
 // Routes pour les catégories
 Route::get('/categories', [CategorieController::class, 'listeCategories'])->name('listeCategories');
@@ -41,9 +41,6 @@ Route::post('/categorie', [CategorieController::class, 'ajouterCategorie'])->nam
 Route::get('/categories/{id}/edit', [CategorieController::class, 'afficherFormModifierCategorie'])->name('afficherFormModifierCategorie');
 Route::put('/categories/{id}', [CategorieController::class, 'modifierCategorie'])->name('modifierCategorie');
 Route::delete('/categories/{id}', [CategorieController::class, 'supprimerCategorie'])->name('supprimerCategorie');
-
-// Route pour afficher la page d'accueil des produits
-// Route::get('/admins', [ProduitController::class, 'accueilProduits'])->name('accueilProduits');
 // Route pour afficher la page d'accueil des catégories
 Route::get('/', [ProduitController::class,'accueilCategories'])->name('accueilCategories');
 // Routes pour les commandes

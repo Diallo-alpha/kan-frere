@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Modifier un Produit</h2>
-        <form method="POST" action="{{ route('produits.modifiers', $produit->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('traiterModificationProduit', $produit->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -59,7 +59,7 @@
             <button type="submit" class="btn btn-primary">Mettre à jour</button>
         </form>
 
-        <form method="POST" action="{{ route('produits.supprimer', $produit->id) }}" style="margin-top: 20px;">
+        <form method="POST" action="{{ route('supprimerProduit', $produit->id) }}" style="margin-top: 20px;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Supprimer</button>
