@@ -1,5 +1,3 @@
-<!-- resources/views/utilisateurs/admins/modifierCommande.blade.php -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -44,6 +42,7 @@
         </form>
     </div>
     <script src="{{ asset('js/commande.js') }}"></script>
+    <script src="{{ asset('js/modfierCommande.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

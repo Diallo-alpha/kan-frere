@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
@@ -12,13 +11,17 @@ class CommandeController extends Controller
     public function listeCommande()
     {
         $commandes = Commande::all();
-
         return view('utilisateurs.admins.listeCommande', compact('commandes'));
     }
+
     public function ajouterCommande($id)
     {
-        $produits = Produit::all();
-        return view('commandes.ajouterCommande', compact('produits'));
+        if (Auth::check()) {
+            $produits = Produit::all();
+            return view('commandes.ajouterCommande', compact('produits'));
+        } else {
+            return redirect()->route('afficherFormConnexion')->with('error', 'Vous devez être connecté pour ajouter une commande.');
+        }
     }
 
     public function creerCommande(Request $request)
@@ -29,7 +32,6 @@ class CommandeController extends Controller
             $prix = $request->input('prix');
             $total = 0;
 
-            // Calculer le total de la commande
             foreach ($prix as $index => $p) {
                 $total += $p * $quantites[$index];
             }
@@ -38,12 +40,10 @@ class CommandeController extends Controller
             $commande->user_id = Auth::id();
             $commande->total = $total;
 
-            // Générer une référence unique pour la commande
-            $refrences = 'REF' . time(); // Exemple d'une référence unique basée sur le timestamp
-            $commande->reference = $refrences;
+            $reference = 'REF' . time();
+            $commande->reference = $reference;
             $commande->save();
 
-            // Enregistrer chaque produit de la commande avec la jointure
             foreach ($produits as $index => $produitId) {
                 $commande->produits()->attach($produitId, [
                     'quantite' => $quantites[$index],
@@ -53,7 +53,6 @@ class CommandeController extends Controller
 
             return redirect('/')->with('success', 'Commande créée avec succès. Total: ' . $commande->total . ' Frans');
         } else {
-            // L'utilisateur n'est pas connecté, rediriger vers la page de connexion
             return redirect()->route('afficherFormConnexion')->with('error', 'Vous devez être connecté pour ajouter une commande.');
         }
     }
@@ -83,12 +82,14 @@ class CommandeController extends Controller
             return redirect('/')->with('error', 'Commande non trouvée.');
         }
     }
+
     public function modifier($id)
     {
         $commande = Commande::findOrFail($id);
         $produits = Produit::all();
         return view('utilisateurs.admins.modifierCommande', compact('commande', 'produits'));
     }
+
     public function modiferTraitement(Request $request, $id)
     {
         $commande = Commande::findOrFail($id);
@@ -101,17 +102,16 @@ class CommandeController extends Controller
             ]);
         }
 
-        $total = array_reduce($request->prix, function ($carry, $item) {
-            return $carry + $item;
-        });
+        $total = 0;
+        foreach ($request->produits as $index => $produitId) {
+            $total += $request->quantites[$index] * $request->prix[$index];
+        }
 
         $commande->total = $total;
         $commande->save();
 
         $commandes = Commande::all();
         return view('utilisateurs.admins.listeCommande', compact('commandes'));
-
-        // return view('utilisateurs.admins.listeCommande')->with('success', 'Commande modifiée avec succès.');
     }
 
     public function supprimerCommande($id)
