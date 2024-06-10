@@ -44,9 +44,12 @@ Route::delete('/categories/{id}', [CategorieController::class, 'supprimerCategor
 // Route pour afficher la page d'accueil des catégories
 Route::get('/', [ProduitController::class,'accueilCategories'])->name('accueilCategories');
 // Routes pour les commandes
-Route::post('/commandes/creer', [CommandeController::class, 'creerCommande'])->name('creerCommande');
-Route::get('/commandes/ajouter', [CommandeController::class, 'ajouterCommande'])->name('ajouterCommande');
-Route::get('/commandes/{id}/modifier', [CommandeController::class, 'modifierCommande'])->name('modifierCommande');
-Route::post('/commandes/{id}/update', [CommandeController::class, 'updateCommande'])->name('updateCommande');
-Route::post('/commandes/{id}/annuler', [CommandeController::class, 'annulerCommande'])->name('annulerCommande');
-Route::post('/commandes/{id}/confirmer', [CommandeController::class, 'confirmerCommande'])->name('confirmerCommande');
+
+Route::get('/commandes', [CommandeController::class, 'listeCommande'])->name('commandes.index');
+Route::get('/produits/{id}', [CommandeController::class, 'ajouterCommande'])->name('commandes.ajouter');
+Route::post('/commandes/creer', [CommandeController::class, 'creerCommande'])->name('commandes.creer');
+Route::get('/commandes/{id}/modifier', [CommandeController::class, 'modifier'])->name('commandes.modifier');
+Route::post('/commandes/{id}/modifier', [CommandeController::class, 'modiferTraitement'])->name('commandes.modiferTraitement');
+Route::delete('/commandes/{id}', [CommandeController::class, 'supprimerCommande'])->name('commandes.supprimer');
+Route::post('/commandes/{id}/annuler', [CommandeController::class, 'annulerCommande'])->name('commandes.annuler');
+Route::post('/commandes/{id}/confirmer', [CommandeController::class, 'confirmerCommande'])->name('commandes.confirmer');

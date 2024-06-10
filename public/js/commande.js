@@ -1,61 +1,51 @@
 document.addEventListener('DOMContentLoaded', function() {
     const addProductButton = document.getElementById('add-product');
     const productList = document.getElementById('product-list');
-    const totalPriceElement = document.getElementById('total-price');
     const totalInput = document.getElementById('total-input');
+    const totalPrice = document.getElementById('total-price');
 
     function updateTotalPrice() {
         let total = 0;
-        document.querySelectorAll('.product-item').forEach(function(productItem) {
-            const quantite = parseFloat(productItem.querySelector('.quantite').value) || 0;
-            const prix = parseFloat(productItem.querySelector('.prix').value) || 0;
-            total += quantite * prix;
+        const productItems = document.querySelectorAll('.product-item');
+        productItems.forEach(item => {
+            const quantite = item.querySelector('.quantite').value;
+            const prix = item.querySelector('.prix').value;
+            if (quantite && prix) {
+                total += quantite * prix;
+            }
         });
-        totalPriceElement.textContent = total.toFixed(2);
-        totalInput.value = total.toFixed(2);
-    }
-
-    function removeProduct(event) {
-        event.target.closest('.product-item').remove();
-        updateTotalPrice();
+        totalPrice.textContent = total;
+        totalInput.value = total;
     }
 
     addProductButton.addEventListener('click', function() {
-        const productItem = document.createElement('div');
-        productItem.className = 'product-item mb-3';
-        productItem.innerHTML = `
-            <div class="form-group">
-                <label for="produit">Produit</label>
-                <input type="text" class="form-control produit" name="produits[]" required>
-            </div>
-            <div class="form-group">
-                <label for="quantite">Quantité</label>
-                <input type="number" class="form-control quantite" name="quantites[]" required>
-            </div>
-            <div class="form-group">
-                <label for="prix">Prix</label>
-                <input type="number" class="form-control prix" name="prix[]" required>
-            </div>
-            <button type="button" class="btn btn-danger remove-product">Supprimer</button>
-        `;
-        productList.appendChild(productItem);
-
-        productItem.querySelector('.quantite').addEventListener('input', updateTotalPrice);
-        productItem.querySelector('.prix').addEventListener('input', updateTotalPrice);
-        productItem.querySelector('.remove-product').addEventListener('click', removeProduct);
+        const newProductItem = document.querySelector('.product-item').cloneNode(true);
+        newProductItem.querySelector('select.produit').value = '';
+        newProductItem.querySelector('input.quantite').value = '';
+        newProductItem.querySelector('input.prix').value = '';
+        productList.appendChild(newProductItem);
     });
 
-    document.querySelectorAll('.quantite').forEach(function(input) {
-        input.addEventListener('input', updateTotalPrice);
+    productList.addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-product')) {
+            event.target.closest('.product-item').remove();
+            updateTotalPrice();
+        }
     });
 
-    document.querySelectorAll('.prix').forEach(function(input) {
-        input.addEventListener('input', updateTotalPrice);
+    productList.addEventListener('input', function(event) {
+        if (event.target.classList.contains('quantite')) {
+            updateTotalPrice();
+        }
     });
 
-    document.querySelectorAll('.remove-product').forEach(function(button) {
-        button.addEventListener('click', removeProduct);
+    productList.addEventListener('change', function(event) {
+        if (event.target.classList.contains('produit')) {
+            const selectedOption = event.target.options[event.target.selectedIndex];
+            const prix = selectedOption.getAttribute('data-prix');
+            const prixInput = event.target.closest('.product-item').querySelector('.prix');
+            prixInput.value = prix;
+            updateTotalPrice();
+        }
     });
-
-    updateTotalPrice(); // Initial calculation
 });
