@@ -46,7 +46,7 @@
                             <i class="fa-solid fa-sign-out-alt nav-icon">Déconnexion</i>
                         </a>
                         @else
-                        <a href="{{ route('connexion') }}" class="text-decoration-none text-dark">
+                        <a href="{{ route('afficherFormConnexion') }}" class="text-decoration-none text-dark">
                             <i class="fa-solid fa-user nav-icon">connexion</i>
                         </a>
                         <a href="{{ route('form.inscription') }}" class="btn btn-primary ml-3">S'inscrire</a>
