@@ -3,18 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
 {
+    public function accueilProduits()
+    {
+        $produits = Produit::with('categorie')->get();
+        return view('utilisateurs.admins.listeProduit', compact('produits'));
+    }
+    public function accueilCategories()
+    {
+        $categories = Categorie::all();
+        $produits = Produit::with('categorie')->get();
+        return view('visiteurs.accueil', compact('categories', 'produits'));
+    }
     public function voirPlus()
     {
         $produits = Produit::all();
-        return view('utilisateurs.admins.listeProduits', compact('produits'));
+        return view('utilisateurs.admins.listeProduit', compact('produits'));
     }
+
     public function ajouterProduit()
     {
-        return view('utilisateurs.admins.ajouterProduit');
+        $categories = Categorie::all();
+        return view('utilisateurs.admins.ajouterProduit', compact('categories'));
     }
 
     public function ajoutTraitement(Request $request)
@@ -23,12 +37,13 @@ class ProduitController extends Controller
             'nom' => 'required|string|max:255',
             'reference' => 'required|string|max:255|unique:produits',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:12048',
             'etat' => 'required|in:rupture,stock',
             'prix' => 'required|integer',
             'categorie_id' => 'nullable|exists:categories,id',
         ]);
 
+        $imageName = null;
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
@@ -44,20 +59,22 @@ class ProduitController extends Controller
             'categorie_id' => $request->categorie_id,
         ]);
 
-        return redirect()->route('inscription')->with('success', 'Produit ajouté avec succès !');
+        return redirect()->route('produits.list')->with('success', 'Produit ajouté avec succès !');
     }
-    public function detailles($id)
-{
-    $produit = Produit::findOrFail($id);
-    return view('utilisateurs.admins.detailProduit', compact('produit'));
-}
 
+    public function detaillesProduit($id)
+    {
+        $produit = Produit::findOrFail($id);
+        return view('utilisateurs.admins.detaillesProduit', compact('produit'));
+    }
 
     public function modifier($id)
     {
         $produit = Produit::findOrFail($id);
-        return view('utilisateurs.admins.editProduit', compact('produit'));
+        $categories = Categorie::all();
+        return view('utilisateurs.admins.ModifierProduit', compact('produit', 'categories'));
     }
+
 
     public function modifierProduit(Request $request, $id)
     {
@@ -88,14 +105,14 @@ class ProduitController extends Controller
             'categorie_id' => $request->categorie_id,
         ]);
 
-        return redirect()->route('inscription')->with('success', 'Produit mis à jour avec succès !');
+        return redirect()->route('produits.list')->with('success', 'Produit mis à jour avec succès !');
     }
 
-    public function supprimmerProduit($id)
+    public function supprimerProduit($id)
     {
         $produit = Produit::findOrFail($id);
         $produit->delete();
 
-        return redirect()->route('inscription')->with('success', 'Produit supprimé avec succès !');
+        return redirect()->route('produits.list')->with('success', 'Produit supprimé avec succès !');
     }
 }
