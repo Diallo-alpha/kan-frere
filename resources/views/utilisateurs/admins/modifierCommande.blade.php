@@ -35,11 +35,9 @@
                             <label for="prix">Prix</label>
                             <input type="number" class="form-control prix" name="prix[]" value="{{ $produit->pivot->prix }}" required>
                         </div>
-                        <button type="button" class="btn btn-danger remove-product">Supprimer</button>
                     </div>
                 @endforeach
             </div>
-            <button type="button" id="add-product" class="btn btn-secondary">Ajouter un produit</button>
             <h3 class="mt-4">Total: <span id="total-price">0</span> Frans</h3>
             <input type="hidden" name="total" id="total-input">
             <button type="submit" class="btn btn-primary mt-3">Mettre à jour</button>

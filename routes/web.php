@@ -45,7 +45,7 @@ Route::delete('/categories/{id}', [CategorieController::class, 'supprimerCategor
 Route::get('/', [ProduitController::class,'accueilCategories'])->name('accueilCategories');
 // Routes pour les commandes
 
-Route::get('/commandes', [CommandeController::class, 'listeCommande'])->name('commandes.index');
+Route::get('/commandes', [CommandeController::class, 'listeCommande'])->name('commandes.liste');
 Route::get('/produits/{id}', [CommandeController::class, 'ajouterCommande'])->name('commandes.ajouter');
 Route::post('/commandes/creer', [CommandeController::class, 'creerCommande'])->name('commandes.creer');
 Route::get('/commandes/{id}/modifier', [CommandeController::class, 'modifier'])->name('commandes.modifier');

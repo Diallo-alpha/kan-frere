@@ -11,7 +11,8 @@ class CommandeController extends Controller
 {
     public function listeCommande()
     {
-        $commandes = Commande::with('produits')->get();
+        $commandes = Commande::all();
+
         return view('utilisateurs.admins.listeCommande', compact('commandes'));
     }
     public function ajouterCommande($id)
@@ -26,7 +27,6 @@ class CommandeController extends Controller
             $produits = $request->input('produits');
             $quantites = $request->input('quantites');
             $prix = $request->input('prix');
-
             $total = 0;
 
             // Calculer le total de la commande
@@ -108,7 +108,10 @@ class CommandeController extends Controller
         $commande->total = $total;
         $commande->save();
 
-        return view('utilisateurs.admins.listeCommande')->with('success', 'Commande modifiée avec succès.');
+        $commandes = Commande::all();
+        return view('utilisateurs.admins.listeCommande', compact('commandes'));
+
+        // return view('utilisateurs.admins.listeCommande')->with('success', 'Commande modifiée avec succès.');
     }
 
     public function supprimerCommande($id)
