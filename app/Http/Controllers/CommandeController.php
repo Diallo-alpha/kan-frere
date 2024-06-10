@@ -118,6 +118,6 @@ class CommandeController extends Controller
     {
         $commande = Commande::findOrFail($id);
         $commande->delete();
-        return redirect()->route('commandes.index')->with('success', 'Commande supprimée avec succès.');
+        return redirect()->route('commandes.liste')->with('success', 'Commande supprimée avec succès.');
     }
 }

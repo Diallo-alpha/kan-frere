@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1>Liste des catégories</h1>
-        <a href="{{ route('afficher.formulaire') }}" class="btn btn-primary mb-3">Ajouter une catégorie</a>
+        <a href="{{ route('afficherFormAjoutCategorie') }}" class="btn btn-primary mb-3">Ajouter une catégorie</a>
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -35,8 +35,8 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('formulaire.categorie.editer', $categorie->id) }}" class="btn btn-warning">Modifier</a>
-                            <form action="{{ route('categories.supprimer', $categorie->id) }}" method="POST" style="display:inline-block;">
+                            <a href="{{ route('afficherFormModifierCategorie', $categorie->id) }}" class="btn btn-warning">Modifier</a>
+                            <form action="{{ route('supprimerCategorie', $categorie->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Supprimer</button>

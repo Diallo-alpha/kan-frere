@@ -20,7 +20,7 @@ Route::get('/produits', [ProduitController::class, 'accueilProduits'])->name('pr
 Route::get('/admins/ajouter', [ProduitController::class, 'ajouterProduit'])->name('ajouterProduit');
 
 // Route pour traiter la soumission du formulaire d'ajout d'un nouveau produit
-Route::post('/produits', [ProduitController::class, 'traiterAjoutProduit'])->name('traiterAjoutProduit');
+Route::post('/produits', [ProduitController::class, 'ajoutTraitement'])->name('traiterAjoutProduit');
 
 // Route pour afficher le formulaire de modification d'un produit existant
 Route::get('/produits/{id}/edit', [ProduitController::class, 'modifier'])->name('modifierProduitForm');
@@ -35,12 +35,12 @@ Route::delete('/produits/{id}', [ProduitController::class, 'supprimerProduit'])-
 Route::get('/produits/{id}/details', [ProduitController::class, 'detaillesProduit'])->name('afficherDetailsProduit');
 
 // Routes pour les catégories
-Route::get('/categories', [CategorieController::class, 'listeCategories'])->name('listeCategories');
+Route::get('/categories', [CategorieController::class, 'listCategorie'])->name('listeCategories');
 Route::get('/ajouter/categorie', [CategorieController::class, 'afficherFormAjoutCategorie'])->name('afficherFormAjoutCategorie');
 Route::post('/categorie', [CategorieController::class, 'ajouterCategorie'])->name('ajouterCategorie');
 Route::get('/categories/{id}/edit', [CategorieController::class, 'afficherFormModifierCategorie'])->name('afficherFormModifierCategorie');
-Route::put('/categories/{id}', [CategorieController::class, 'modifierCategorie'])->name('modifierCategorie');
-Route::delete('/categories/{id}', [CategorieController::class, 'supprimerCategorie'])->name('supprimerCategorie');
+Route::put('/categories/{id}', [CategorieController::class, 'miseAjour'])->name('modifierCategorie');
+Route::delete('/categories/{id}', [CategorieController::class, 'supprimmerCategorie'])->name('supprimerCategorie');
 // Route pour afficher la page d'accueil des catégories
 Route::get('/', [ProduitController::class,'accueilCategories'])->name('accueilCategories');
 // Routes pour les commandes

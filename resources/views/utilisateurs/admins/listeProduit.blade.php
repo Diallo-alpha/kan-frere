@@ -53,6 +53,36 @@
             </div>
         </div>
     </nav>
+    <style>
+        .button-link {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+.btn-success {
+    position: relative;
+    margin: 10px;
+}
+
+button .button-link:hover {
+    color: white;
+}
+
+    </style>
+  <center>
+    <button class="btn btn-success">
+        <a href="{{route('ajouterProduit')}}" class="button-link">Ajouter un produit</a>
+    </button>
+    <button class="btn btn-success">
+        <a href="{{route('commandes.liste')}}" class="button-link">Voir les commandes</a>
+    </button>
+    <button class="btn btn-success">
+        <a href="{{route('listeCategories')}}" class="button-link">Voir les catégories</a>
+    </button>
+</center>
+
     <div class="container mt-5">
         <h2 class="mb-4">Liste des Produits</h2>
         <table class="table table-bordered">
