@@ -15,7 +15,7 @@ class CategorieController extends Controller
         return view('categories.listCategories', compact('categories'));
     }
 
-    public function formulaireCategorie()
+    public function afficherFormAjoutCategorie()
     {
         return view('categories.ajoutCategorie');
     }
@@ -38,10 +38,10 @@ class CategorieController extends Controller
             'image' => $imageName,
         ]);
 
-        return redirect()->route('liste.categories')->with('success', 'Catégorie ajoutée avec succès !');
+        return redirect()->route('listeCategories')->with('success', 'Catégorie ajoutée avec succès !');
     }
 
-    public function afficherFormModifier($id)
+    public function afficherFormModifierCategorie($id)
     {
         $categorie = Categorie::findOrFail($id);
         return view('categories.modifierCategorie', compact('categorie'));
@@ -67,13 +67,13 @@ class CategorieController extends Controller
             'image' => $categorie->image,
         ]);
 
-        return redirect()->route('liste.categories')->with('success', 'Catégorie ajoutée avec succès !');
+        return redirect()->route('listeCategories')->with('success', 'Catégorie ajoutée avec succès !');
     }
 
     public function supprimmerCategorie($id)
     {
         $categorie = Categorie::findOrFail($id);
         $categorie->delete();
-        return redirect()->route('liste.categories')->with('success', 'Catégorie ajoutée avec succès !');
+        return redirect()->route('listeCategories')->with('success', 'Catégorie ajoutée avec succès !');
     }
 }

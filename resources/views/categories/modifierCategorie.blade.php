@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1>Modifier une Catégorie</h1>
-        <form method="post" action="{{ route('modier.categorie', $categorie->id) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('modifierCategorie', $categorie->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group">

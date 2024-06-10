@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h1>Ajouter une Catégorie</h1>
-        <form method="post" action="{{ route('ajouter.categorie') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('ajouterCategorie') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="libelle">Libellé</label>
