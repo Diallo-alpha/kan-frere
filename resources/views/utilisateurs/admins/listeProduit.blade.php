@@ -35,13 +35,13 @@
                         <td>{{ $produit->prix }} Frans CFA</td>
                         <td>{{ $produit->categorie ? $produit->categorie->libelle : 'null' }}</td>
                         <td>
-                            <a href="{{ route('formulaire.modifier', $produit->id) }}" class="btn btn-warning">Modifier</a>
-                            <form action="{{ route('produits.supprimer', $produit->id) }}" method="POST" style="display:inline-block;">
+                            <a href="{{ route('modifierProduitForm', $produit->id) }}" class="btn btn-warning">Modifier</a>
+                            <form action="{{ route('supprimerProduit', $produit->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Supprimer</button>
                             </form>
-                            <a href="{{ route('produits.detaillesProduit', $produit->id) }}" class="btn btn-info">Voir Détails</a>
+                            <a href="{{ route('afficherDetailsProduit', $produit->id) }}" class="btn btn-info">Voir Détails</a>
                         </td>
                     </tr>
                 @endforeach

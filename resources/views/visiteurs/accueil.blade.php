@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href ="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==">
-     <link rel="stylesheet" href="{{asset('css/accueil.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
     <title>Accueil</title>
 </head>
 <body>
@@ -41,15 +41,22 @@
                         <a href="" class="text-decoration-none text-dark">
                             <i class="fa-solid fa-cart-arrow-down nav-icon"></i>
                         </a>
-                        <a href="" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-user nav-icon"></i>
+                        @auth <!-- Vérifie si l'utilisateur est connecté -->
+                        <a href="{{ route('deconnexion') }}" class="text-decoration-none text-dark">
+                            <i class="fa-solid fa-sign-out-alt nav-icon">Déconnexion</i>
                         </a>
-                        <a href="#" class="btn btn-primary ml-3">Se Connecter</a>
+                        @else
+                        <a href="{{ route('connexion') }}" class="text-decoration-none text-dark">
+                            <i class="fa-solid fa-user nav-icon">connexion</i>
+                        </a>
+                        <a href="{{ route('form.inscription') }}" class="btn btn-primary ml-3">S'inscrire</a>
+                        @endauth <!-- Fin de la vérification de l'authentification -->
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+
 {{-- carroussel --}}
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -87,21 +94,25 @@
                     <h4><a href="">{{ $produit->nom }}</a></h4>
                     <p>{{ $produit->description }}</p>
                     <div class="details-bas-produit">
-                        <div class="prix-produit">{{ $produit->prix }} Frans CFA</div>
+                        <div class="prix-produit">{{ $produit->prix }} Frans</div>
                         <div class="liens-produit">
                             <a href=""><i class="fa fa-heart"></i></a>
                             <a href=""><i class="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
-                    <button class="btn btn-primary">Commander</button>
+                    <form action="{{ route('creerCommande') }}" method="POST" class="d-inline">
+                        @csrf
+                        <input type="hidden" name="total" value="{{ $produit->prix }}">
+                        <button type="submit" class="btn btn-primary">Commander</button>
+                    </form>
                     <button class="btn btn-secondary">Voir Détails</button>
                 </div>
             </div>
         @endforeach
     </div>
 </div>
-  {{-- Catégories --}}
-  <div class="container mt-5">
+ {{-- Catégories --}}
+<div class="container mt-5">
     <h2 class="mb-4">Catégories</h2>
     <div class="categorie-section row">
         @foreach($categories as $categorie)
@@ -146,6 +157,7 @@
     </div>
 </footer>
 </footer>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="{{asset('js/commande.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
 </body>
 </html>

@@ -11,7 +11,13 @@ class ProduitController extends Controller
     public function accueilProduits()
     {
         $produits = Produit::with('categorie')->get();
-        return view('visiteurs.accueil', compact('produits'));
+        return view('utilisateurs.admins.listeProduit', compact('produits'));
+    }
+    public function accueilCategories()
+    {
+        $categories = Categorie::all();
+        $produits = Produit::with('categorie')->get();
+        return view('visiteurs.accueil', compact('categories', 'produits'));
     }
     public function voirPlus()
     {
@@ -31,7 +37,7 @@ class ProduitController extends Controller
             'nom' => 'required|string|max:255',
             'reference' => 'required|string|max:255|unique:produits',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:12048',
             'etat' => 'required|in:rupture,stock',
             'prix' => 'required|integer',
             'categorie_id' => 'nullable|exists:categories,id',

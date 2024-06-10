@@ -24,6 +24,12 @@
 
             <button type="submit" class="btn btn-primary">Se connecter</button>
         </form>
+        <div class="mt-3">
+            <form action="{{ route('form.inscription') }}" method="get" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-primary">s'inscrire</button>
+            </form>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

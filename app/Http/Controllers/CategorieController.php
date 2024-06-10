@@ -8,12 +8,7 @@ use Illuminate\Http\Request;
 
 class CategorieController extends Controller
 {
-    public function accueilCategories()
-    {
-        $categories = Categorie::all();
-        $produits = Produit::with('categorie')->get();
-        return view('visiteurs.accueil', compact('categories', 'produits'));
-    }
+
     public function listCategorie()
     {
         $categories = Categorie::all();
