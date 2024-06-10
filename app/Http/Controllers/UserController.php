@@ -83,6 +83,6 @@ class UserController extends Controller
         $request->session()->invalidate(); // Invalidaion de la session
         $request->session()->regenerateToken(); // Régénération du token CSRF
 
-        return redirect()->route('page.accueill')->with('success', 'Vous avez été déconnecté avec succès.');
+        return redirect()->route('accueilCategories')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 }
