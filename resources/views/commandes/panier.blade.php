@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-8FGzKlYc+aUU3GxOKGJI/tFUWkswOAhIsH73/2MCdvfiuYQzg+u9BjMvYDBuebKNTpnujps2l1rhjJkxZlP0Kg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Ajouter une commande</title>
+    <title>Pannier</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -60,44 +60,59 @@
         <a href="{{ route('commandes.afficherPanier') }}" class="btn btn-primary ml-3"><i class='bx bx-shopping-bag'id="shopicon" ></i></a>
     </nav>
 <body>
-    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
     <div class="container mt-5">
-        <h2>Ajouter une Commande</h2>
-        <form id="order-form" action="{{ route('commandes.creer') }}" method="post">
-            @csrf
-            <div id="product-list">
-                <div class="product-item mb-3">
-                    <div class="form-group">
-                        <label for="produit">Produit</label>
-                        <select class="form-control produit" name="produits[]" required>
-                            <option value="" data-prix="">Sélectionnez un produit</option>
-                            @foreach($produits as $produit)
-                                <option value="{{ $produit->id }}" data-prix="{{ $produit->prix }}">{{ $produit->nom }} - {{ $produit->prix }} Frans</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="quantite">Quantité</label>
-                        <input type="number" class="form-control quantite" name="quantites[]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prix">Prix</label>
-                        <input type="number" class="form-control prix" name="prix[]" value="{{$produit->prix}}" required>
-                    </div>
-                    <button type="button" class="btn btn-danger remove-product">Supprimer</button>
-                </div>
+        <h1 class="mb-4">Votre Panier</h1>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-            <button type="button" id="add-product" class="btn btn-secondary">Ajouter un produit</button>
-            <h3 class="mt-4">Total: <span id="total-price">0</span> Frans</h3>
-            <input type="hidden" name="total" id="total-input">
-            <button type="submit" class="btn btn-primary mt-3">Commander</button>
-        </form>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $total = 0 @endphp
+                @foreach($panier as $id => $details)
+                    @php $total += $details['prix'] * $details['quantite'] @endphp
+                    <tr>
+                        <td>
+                            <img src="{{ asset('images/' . $details['produit']->image) }}" width="50" height="50" alt="{{ $details['produit']->nom }}">
+                            <span>{{ $details['produit']->nom }}</span>
+                        </td>
+                        <td>{{ $details['quantite'] }}</td>
+                        <td>{{ $details['prix'] }} Frans</td>
+                        <td>{{ $details['prix'] * $details['quantite'] }} Frans</td>
+                        <td>
+                            <form action="{{ route('commandes.supprimerDuPanier', $id) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="mt-3">
+            <h4>Total: {{ $total }} Frans</h4>
+        </div>
+        <div class="mt-3">
+            <form action="{{ route('commandes.creer') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary">Valider la commande</button>
+            </form>
+        </div>
     </div>
-    <script src="{{ asset('js/commande.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
