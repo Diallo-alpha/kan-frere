@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Accueil</title>
 </head>
 <body>
@@ -55,8 +56,8 @@
                 </div>
             </div>
         </div>
+        <i class='bx bx-shopping-bag'id="shopicon" ></i>
     </nav>
-
     {{-- Affichage des messages de succès et d'erreur --}}
     @if(session('success'))
         <div class="alert alert-success">
@@ -92,56 +93,47 @@
         </button>
     </div>
 
+    {{-- Section des produits --}}
+    <section class="shop container">
+        <h2 class="section-title">Produit Boutique</h2>
+        <div class="shop-content">
+            @foreach($produits as $produit)
+                <div class="product-box">
+                    <img src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}" class="prod-img">
+                    <h2 class="product-title">{{ $produit->nom }}</h2>
+                    <input type="hidden" value="{{ $produit->id }}">
+                    <p>{{ $produit->description }}</p>
+                    <span class="price">{{ $produit->prix }} Frans</span>
+                </div>
+                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="get" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                    <button type="submit" class="btn btn-primary"> <i class='bx bx-shopping-bag add-cart'></i></button>
+                </form>
+            @endforeach
+        </div>
+    </section>
     {{-- Cartes --}}
     <div class="container mt-5">
-        <h2 class="mb-4">Nos Produits</h2>
+        <h2 class="mb-4">Nos categories</h2>
         <div class="conteneur-cartes row">
-            @foreach($produits as $produit)
+            @foreach($categories as $categorie)
                 <div class="carte-produit col-md-4 mb-4">
-                    <div class="vignette-produit">
-                        <img src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}" class="img-fluid">
-                    </div>
                     <div class="details-produit">
-                        <span class="categorie-produit">{{ $produit->categorie ? $produit->categorie->libelle : 'N/A' }}</span>
-                        <input type="hidden" value="{{ $produit->id }}">
-                        <h4><a href="">{{ $produit->nom }}</a></h4>
-                        <p>{{ $produit->description }}</p>
-                        <div class="details-bas-produit">
-                            <div class="prix-produit">{{ $produit->prix }} Frans</div>
-                            <div class="liens-produit">
-                                <a href=""><i class="fa fa-heart"></i></a>
-                                <a href=""><i class="fa fa-shopping-cart"></i></a>
-                            </div>
+                        <div class="categorie col-md-3 mb-4">
+                            @if ($categorie->image)
+                                <img src="{{ asset('images/categories/' . $categorie->image) }}" class="img-fluid" alt="{{ $categorie->libelle }}">
+                            @else
+                                <img src="https://via.placeholder.com/150" class="img-fluid" alt="Image par défaut">
+                            @endif
+                            <p class="mt-2">{{ $categorie->libelle }}</p>
                         </div>
-                        <form action="{{ route('commandes.ajouter',$produit->id) }}" method="get" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                            <button type="submit" class="btn btn-primary">Commander</button>
-                        </form>
                         <button class="btn btn-secondary">Voir Détails</button>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-
-    {{-- Catégories --}}
-    <div class="container mt-5">
-        <h2 class="mb-4">Catégories</h2>
-        <div class="categorie-section row">
-            @foreach($categories as $categorie)
-                <div class="categorie col-md-3 mb-4">
-                    @if ($categorie->image)
-                        <img src="{{ asset('images/categories/' . $categorie->image) }}" class="img-fluid" alt="{{ $categorie->libelle }}">
-                    @else
-                        <img src="https://via.placeholder.com/150" class="img-fluid" alt="Image par défaut">
-                    @endif
-                    <p class="mt-2">{{ $categorie->libelle }}</p>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
     {{-- Contact --}}
     <footer class="footer">
         <div class="container">

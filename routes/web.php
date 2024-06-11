@@ -53,3 +53,10 @@ Route::post('/commandes/{id}/modifier', [CommandeController::class, 'modiferTrai
 Route::delete('/commandes/{id}', [CommandeController::class, 'supprimerCommande'])->name('commandes.supprimer');
 Route::post('/commandes/{id}/annuler', [CommandeController::class, 'annulerCommande'])->name('commandes.annuler');
 Route::post('/commandes/{id}/confirmer', [CommandeController::class, 'confirmerCommande'])->name('commandes.confirmer');
+
+//test code
+// Route::get('/', function()
+//     {
+//         return view('test.testAccueil');
+//     }
+// );
