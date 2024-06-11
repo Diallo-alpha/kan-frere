@@ -93,7 +93,8 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
+    <br>
+    <br>
   {{-- Section des produits --}}
 <section class="shop container">
     <h2 class="section-title">Produit Boutique</h2>
