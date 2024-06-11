@@ -19,10 +19,10 @@ Route::get('/deconnexion', [UserController::class, 'deconnexion'])->name('deconn
 Route::get('/', [ProduitController::class, 'accueilCategories'])->name('accueilCategories');
 
 // Route pour lister tous les produits
-// Route::get('/produits', [ProduitController::class, 'accueilProduits'])->name('produits.list');
+Route::get('/produits', [ProduitController::class, 'accueilProduits'])->name('produits.list');
 
 // Routes pour afficher les détails d'un produit
-// Route::get('/produits/{id}/details', [ProduitController::class, 'detaillesProduit'])->name('afficherDetailsProduit');
+Route::get('/produits/{id}/details', [ProduitController::class, 'detaillesProduit'])->name('afficherDetailsProduit');
 
 // Routes pour les commandes (accès public)
 Route::post('/produits/{id}/ajouter', [CommandeController::class, 'ajouterCommande'])->name('commandes.ajouter');
