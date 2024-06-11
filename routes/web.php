@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProduitController;
@@ -46,17 +45,14 @@ Route::get('/', [ProduitController::class,'accueilCategories'])->name('accueilCa
 // Routes pour les commandes
 
 Route::get('/commandes', [CommandeController::class, 'listeCommande'])->name('commandes.liste');
-Route::get('/produits/{id}', [CommandeController::class, 'ajouterCommande'])->name('commandes.ajouter');
+// Route pour ajouter un produit au panier (en utilisant POST)
+Route::post('/produits/{id}/ajouter', [CommandeController::class, 'ajouterCommande'])->name('commandes.ajouter');
 Route::post('/commandes/creer', [CommandeController::class, 'creerCommande'])->name('commandes.creer');
 Route::get('/commandes/{id}/modifier', [CommandeController::class, 'modifier'])->name('commandes.modifier');
 Route::post('/commandes/{id}/modifier', [CommandeController::class, 'modiferTraitement'])->name('commandes.modiferTraitement');
 Route::delete('/commandes/{id}', [CommandeController::class, 'supprimerCommande'])->name('commandes.supprimer');
 Route::post('/commandes/{id}/annuler', [CommandeController::class, 'annulerCommande'])->name('commandes.annuler');
 Route::post('/commandes/{id}/confirmer', [CommandeController::class, 'confirmerCommande'])->name('commandes.confirmer');
-
-//test code
-// Route::get('/', function()
-//     {
-//         return view('test.testAccueil');
-//     }
-// );
+//panier
+Route::get('/panier', [CommandeController::class, 'afficherPanier'])->name('commandes.afficherPanier');
+Route::post('/panier/supprimer/{id}', [CommandeController::class, 'supprimerDuPanier'])->name('commandes.supprimerDuPanier');

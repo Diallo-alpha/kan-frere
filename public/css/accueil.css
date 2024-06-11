@@ -137,7 +137,7 @@ header {
 /* Section des produits */
 .shop-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(270px, auto));
     gap: 1.5rem;
 }
 
@@ -170,34 +170,6 @@ header {
     padding: 10px;
     cursor: pointer;
 }
-
-/* Pied de page */
-.footer {
-    background-color: #343a40;
-    color: #fff;
-    padding: 2rem 0;
-}
-
-.footer a {
-    color: #28a745;
-    text-decoration: none;
-}
-
-.footer a:hover {
-    text-decoration: underline;
-}
-
-.social-icons a {
-    font-size: 1.5rem;
-    margin: 0 0.5rem;
-    color: #28a745;
-}
-
-.social-icons a:hover {
-    color: #155724;
-}
-
-/* Autres styles spécifiques */
 .carousel-item img {
     height: 400px;
     object-fit: cover;
@@ -306,4 +278,29 @@ header {
 
 .liens-produit a:hover {
     color: #fbb72c;
+}
+/* Pied de page */
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 2rem 0;
+}
+
+.footer a {
+    color: #28a745;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.social-icons a {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    color: #28a745;
+}
+
+.social-icons a:hover {
+    color: #155724;
 }

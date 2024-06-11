@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Produits</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-8FGzKlYc+aUU3GxOKGJI/tFUWkswOAhIsH73/2MCdvfiuYQzg+u9BjMvYDBuebKNTpnujps2l1rhjJkxZlP0Kg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Accueil</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -19,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" aria-current="page" href="#">Accueil</a>
+                            <a class="nav-link nav-links" aria-current="page" href="{{route('accueilCategories')}}">Accueil</a>
                         </li>
                         <li class="nav-item nav-items">
                             <a class="nav-link nav-links" href="#">A propos</a>
@@ -38,20 +43,21 @@
                         <a href="" class="text-decoration-none text-dark">
                             <i class="fa-solid fa-cart-arrow-down nav-icon"></i>
                         </a>
-                        @auth <!-- Vérifie si l'utilisateur est connecté -->
+                        @auth
                         <a href="{{ route('deconnexion') }}" class="text-decoration-none text-dark">
                             <i class="fa-solid fa-sign-out-alt nav-icon">Déconnexion</i>
                         </a>
                         @else
-                        <a href="{{ route('connexion') }}" class="text-decoration-none text-dark">
+                        <a href="{{ route('afficherFormConnexion') }}" class="text-decoration-none text-dark">
                             <i class="fa-solid fa-user nav-icon">connexion</i>
                         </a>
                         <a href="{{ route('form.inscription') }}" class="btn btn-primary ml-3">S'inscrire</a>
-                        @endauth <!-- Fin de la vérification de l'authentification -->
+                        @endauth
                     </div>
                 </div>
             </div>
         </div>
+        <a href="{{ route('commandes.afficherPanier') }}" class="btn btn-primary ml-3"><i class='bx bx-shopping-bag'id="shopicon" ></i></a>
     </nav>
     <style>
         .button-link {

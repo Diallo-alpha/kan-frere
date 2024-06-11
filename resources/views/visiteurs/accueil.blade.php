@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-8FGzKlYc+aUU3GxOKGJI/tFUWkswOAhIsH73/2MCdvfiuYQzg+u9BjMvYDBuebKNTpnujps2l1rhjJkxZlP0Kg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Accueil</title>
@@ -23,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" aria-current="page" href="#">Accueil</a>
+                            <a class="nav-link nav-links" aria-current="page" href="{{route('accueilCategories')}}">Accueil</a>
                         </li>
                         <li class="nav-item nav-items">
                             <a class="nav-link nav-links" href="#">A propos</a>
@@ -56,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <i class='bx bx-shopping-bag'id="shopicon" ></i>
+        <a href="{{ route('commandes.afficherPanier') }}" class="btn btn-primary ml-3"><i class='bx bx-shopping-bag'id="shopicon" ></i></a>
     </nav>
     {{-- Affichage des messages de succès et d'erreur --}}
     @if(session('success'))
@@ -93,26 +94,27 @@
         </button>
     </div>
 
-    {{-- Section des produits --}}
-    <section class="shop container">
-        <h2 class="section-title">Produit Boutique</h2>
-        <div class="shop-content">
-            @foreach($produits as $produit)
-                <div class="product-box">
-                    <img src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}" class="prod-img">
-                    <h2 class="product-title">{{ $produit->nom }}</h2>
-                    <input type="hidden" value="{{ $produit->id }}">
-                    <p>{{ $produit->description }}</p>
-                    <span class="price">{{ $produit->prix }} Frans</span>
-                </div>
-                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="get" class="d-inline">
+  {{-- Section des produits --}}
+<section class="shop container">
+    <h2 class="section-title">Produit Boutique</h2>
+    <div class="shop-content">
+        @foreach($produits as $produit)
+            <div class="product-box">
+                <img src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}" class="prod-img">
+                <h2 class="product-title">{{ $produit->nom }}</h2>
+                <p>{{ $produit->description }}</p>
+                <span class="price">{{ $produit->prix }} Frans</span>
+                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                    <button type="submit" class="btn btn-primary"> <i class='bx bx-shopping-bag add-cart'></i></button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class='bx bx-shopping-bag add-cart'></i>
+                    </button>
                 </form>
-            @endforeach
-        </div>
-    </section>
+            </div>
+        @endforeach
+    </div>
+</section>
     {{-- Cartes --}}
     <div class="container mt-5">
         <h2 class="mb-4">Nos categories</h2>
@@ -139,11 +141,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h4>About Us</h4>
+                    <h4>A propos de nous</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.</p>
                 </div>
                 <div class="col-md-4">
-                    <h4>Quick Links</h4>
+                    <h4>Naviguer</h4>
                     <ul class="list-unstyled">
                         <li><a href="#">Accueil</a></li>
                         <li><a href="#">A propos</a></li>
@@ -152,7 +154,7 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h4>Follow Us</h4>
+                    <h4>Suivez-nous</h4>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
