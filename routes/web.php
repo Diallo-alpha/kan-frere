@@ -12,7 +12,7 @@ use App\Http\Controllers\CategorieController;
 Route::get('/inscription', [UserController::class, 'formulaireInscription'])->name('form.inscription');
 Route::post('/enregistrer', [UserController::class, 'enregistrer'])->name('inscription');
 Route::get('/connexionForm', [UserController::class, 'afficherFormConnexion'])->name('afficherFormConnexion');
-Route::post('/connexion', [UserController::class, 'connexion'])->name('connexion');
+Route::post('/connexion', [UserController::class, 'connexion'])->name('login');
 Route::get('/deconnexion', [UserController::class, 'deconnexion'])->name('deconnexion');
 
 // Route pour afficher la page d'accueil des catégories
@@ -33,7 +33,7 @@ Route::get('/panier', [CommandeController::class, 'afficherPanier'])->name('comm
 Route::post('/panier/supprimer/{id}', [CommandeController::class, 'supprimerDuPanier'])->name('commandes.supprimerDuPanier');
 
 // Middleware pour vérifier l'authentification et le rôle d'administrateur
-Route::middleware(['auth', 'admin'])->group(function () {
+// Route::middleware(['auth', 'admin'])->group(function () {
     // Routes des produits
     Route::get('/admins/ajouter', [ProduitController::class, 'ajouterProduit'])->name('ajouterProduit');
     Route::post('/produits', [ProduitController::class, 'ajoutTraitement'])->name('traiterAjoutProduit');
@@ -54,4 +54,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/commandes/{id}/modifier', [CommandeController::class, 'modifier'])->name('commandes.modifier');
     Route::post('/commandes/{id}/modifier', [CommandeController::class, 'modiferTraitement'])->name('commandes.modiferTraitement');
     Route::delete('/commandes/{id}', [CommandeController::class, 'supprimerCommande'])->name('commandes.supprimer');
-});
+//});

@@ -20,18 +20,18 @@ class UserController extends Controller
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'telephone' => 'required|digits_between:8,11',
             'password' => 'required|string|min:1|confirmed',
             'role' => 'required|string|in:client,admin',
         ]);
-
-        $role = $request->input('role', 'client');
 
         User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'email' => $request->email,
+            'telephone' => $request->telephone,
             'password' => Hash::make($request->password),
-            'role' => $role,
+            'role' => $request->role, // Le rôle est par défaut "client"
         ]);
 
         return redirect()->route('afficherFormConnexion')->with('success', 'Inscription réussie ! Vous pouvez maintenant vous connecter.');
@@ -77,10 +77,11 @@ class UserController extends Controller
             'email' => 'Les informations d\'identification ne correspondent pas.',
         ])->withInput($request->only('email'));
     }
+
     public function deconnexion(Request $request)
     {
         Auth::logout(); // Déconnexion de l'utilisateur
-        $request->session()->invalidate(); // Invalidaion de la session
+        $request->session()->invalidate(); // Invalidation de la session
         $request->session()->regenerateToken(); // Régénération du token CSRF
 
         return redirect()->route('accueilCategories')->with('success', 'Vous avez été déconnecté avec succès.');
