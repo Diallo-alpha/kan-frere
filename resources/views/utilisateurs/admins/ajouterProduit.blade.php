@@ -59,9 +59,28 @@
         </div>
         <a href="{{ route('commandes.afficherPanier') }}" class="btn btn-primary ml-3"><i class='bx bx-shopping-bag'id="shopicon" ></i></a>
     </nav>
-<body>
+
     <div class="container mt-5">
         <h2 class="mb-4">Ajouter un Produit</h2>
+
+        <!-- Messages de succès -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Messages d'erreur -->
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="post" action="{{ route('traiterAjoutProduit') }}" enctype="multipart/form-data">
             @csrf
 
@@ -97,7 +116,7 @@
                 <label for="prix">Prix</label>
                 <input id="prix" class="form-control" type="number" name="prix" value="{{ old('prix') }}" required>
             </div>
-            {{-- selectionner un categorie --}}
+
             <div class="form-group">
                 <label for="categorie_id">Catégorie</label>
                 <select id="categorie_id" class="form-control" name="categorie_id">
@@ -107,6 +126,7 @@
                     @endforeach
                 </select>
             </div>
+
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
     </div>
