@@ -418,7 +418,6 @@ img {
 }
 /*contact*/
 .form4 {
-    background-color:#fff;
     background-size: cover;
 }
 
@@ -430,7 +429,6 @@ img {
 }
 
 .form {
-    background-color: white !important;
     padding: 20px;
     margin: auto !important;
 }

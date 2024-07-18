@@ -14,166 +14,191 @@
     <title>Accueil</title>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-          <a href="#">
+<header class="header">
+    <div class="logo">
+        <a href="#">
             <h1 class="text-success">Kan&frere</h1>
-          </a>
-        </div>
-        <nav class="nav">
-          <div class="dropdown">
+        </a>
+    </div>
+    <nav class="nav">
+        <div class="dropdown">
             <button class="dropbtn">Boutique
-              <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </button>
-            <div class="dropdown-content">
-              <a href="#">Fruits</a>
-              <a href="#">Légumes</a>
-              <a href="#">Produits Bio</a>
-              <a href="#">Accessoires</a>
-            </div>
-          </div>
-          <div class="dropdown">
-            <button class="dropbtn">Promotions
-              <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </button>
-            <div class="dropdown-content">
-              <a href="#">Fruits</a>
-              <a href="#">Légumes</a>
-              <a href="#">Produits Bio</a>
-              <a href="#">Accessoires</a>
-            </div>
-          </div>
-          <a href="#" class="nav-link">Contact</a>
-        </nav>
-        <div class="actions">
-            <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
-                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="8" cy="21" r="1" />
-                    <circle cx="19" cy="21" r="1" />
-                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6" />
                 </svg>
-                <span class="cart-count">0</span>
-                <span class="sr-only">Panier</span>
-            </a>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Fruits</a>
+                <a href="#">Légumes</a>
+                <a href="#">Produits Bio</a>
+                <a href="#">Accessoires</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Promotions
+                <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Fruits</a>
+                <a href="#">Légumes</a>
+                <a href="#">Produits Bio</a>
+                <a href="#">Accessoires</a>
+            </div>
+        </div>
+        <a href="#" class="nav-link">Contact</a>
+    </nav>
+    <div class="actions">
+        <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+            </svg>
+            <span class="cart-count">0</span>
+            <span class="sr-only">Panier</span>
+        </a>
+        @if(auth()->check())
+            <a href="{{ route('deconnexion') }}" class="btn btn-primary">Déconnexion</a>
+        @else
             <a href="{{ route('afficherFormConnexion') }}" class="btn btn-primary">Connexion</a>
-        </div>
-      </header>
+        @endif
+    </div>
+</header>
 
-    {{-- Affichage des messages de succès et d'erreur --}}
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+{{-- Affichage des messages de succès et d'erreur --}}
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
-    {{-- Carrousel --}}
-    <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="mask flex-center">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-7 col-12 order-md-1 order-2">
-                                <br>
-                                <br>
-                                <h4>Fruits Frais</h4>
-                                <p>Découvrez notre sélection de fruits frais et juteux, parfaits pour une alimentation saine et équilibrée.</p>
-                                <br>
-                            </div>
-                            <div class="col-md-5 col-12 order-md-2 order-1">
-                                <img src="{{ asset('images/mango-still-life.jpg') }}" class="mx-auto" alt="Fruits Frais"> <br> <br>
-                            </div>
+{{-- Carrousel --}}
+<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="mask flex-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 col-12 order-md-1 order-2">
+                            <br>
+                            <br>
+                            <h4>Fruits Frais</h4>
+                            <p>Découvrez notre sélection de fruits frais et juteux, parfaits pour une alimentation saine et équilibrée.</p>
+                            <br>
+                        </div>
+                        <div class="col-md-5 col-12 order-md-2 order-1">
+                            <img src="{{ asset('images/mango-still-life.jpg') }}" class="mx-auto" alt="Fruits Frais"> <br> <br>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="mask flex-center">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-7 col-12 order-md-1 order-2">
-                                <h4>Légumes Bio</h4>
-                                <p>Nos légumes bio sont cultivés sans pesticides, pour le respect de votre santé et de l'environnement.</p>
-                                <br>
-                            </div>
-                            <div class="col-md-6 col-12 order-md-2 order-1">
-                                <img src="{{ asset('images/avocat.jpg') }}" class="mx-auto" alt="Légumes Bio">
-                            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="mask flex-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 col-12 order-md-1 order-2">
+                            <h4>Légumes Bio</h4>
+                            <p>Nos légumes bio sont cultivés sans pesticides, pour le respect de votre santé et de l'environnement.</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-12 order-md-2 order-1">
+                            <img src="{{ asset('images/avocat.jpg') }}" class="mx-auto" alt="Légumes Bio">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <br>
-    <br>
+<br>
+<br>
 
-    <section id="products">
-        <div class="container py-3 w-100 px-3">
-            <h2 class="mb-4">Produits</h2>
-            <div class="row">
-                @foreach($produits as $produit)
-                    <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
-                        <div class="card">
-                            <img class="card-img-top" src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}">
-                            <div class="card-body">
-                                <h6 class="font-weight-bold pt-1">{{ $produit->nom }}</h6>
-                                <div class="text-muted description">{{ $produit->description }}</div>
-                                <div class="d-flex align-items-center product">
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
-                                    <span class="fas fa-star"></span>
-                                    <span class="far fa-star"></span>
+<section id="products">
+    <div class="container py-3 w-100 px-3">
+        <h2 class="mb-4">Produits</h2>
+        <div class="row">
+            @foreach($produits as $produit)
+                <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold pt-1">{{ $produit->nom }}</h6>
+                            <div class="text-muted description">{{ $produit->description }}</div>
+                            <div class="d-flex align-items-center product">
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="far fa-star"></span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div class="d-flex flex-column">
+                                    <div class="h6 font-weight-bold">{{ $produit->prix }} CFA</div>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-between pt-3">
-                                    <div class="d-flex flex-column">
-                                        <div class="h6 font-weight-bold">{{ $produit->prix }} CFA</div>
-                                    </div>
-                                    <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                                        <button type="submit" class="btn btn-primary add-to-cart" data-id="{{ $produit->id }}" data-nom="{{ $produit->nom }}" data-prix="{{ $produit->prix }}"  href="{{ route('commandes.afficherPanier') }}">Acheter</button>
-                                    </form>
-                                </div>
+                                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                    <button type="button" class="btn btn-primary add-to-cart" data-id="{{ $produit->id }}" data-nom="{{ $produit->nom }}" data-prix="{{ $produit->prix }}">Acheter</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Modal du panier -->
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cartModalLabel">Panier</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="cartItems"></div>
-                    <div class="text-end">
-                        <strong>Total : </strong><span id="cartTotal">0 CFA</span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary" href="{{ route('commandes.creer', $produit->id) }}">Commander</button>
-                </div>
+<!-- Modal du panier -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Panier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartItemsContainer">
+                        <!-- Contenu du panier généré par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <form action="{{ route('commandes.creer') }}" method="POST">
+                    @csrf
+                    <!-- Inclure les éléments du panier comme champs cachés -->
+                    <div id="cartFormItems"></div>
+                    <button type="submit" class="btn btn-primary">Commander</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Total du panier -->
+<div class="container">
+    <h4>Total : <span id="cartTotal">0 CFA</span></h4>
+</div>
     </div>
     <section id=" container contact">
         <div class="form4 top">
@@ -249,80 +274,9 @@
         </div>
     </div>
 </footer>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    const cartCountElement = document.querySelector('.cart-count');
-    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
-    const cartItemsContainer = document.getElementById('cartItems');
-    const cartTotalElement = document.getElementById('cartTotal');
-    const placeOrderButton = document.getElementById('placeOrder');
-
-    let cart = {};
-
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const productId = button.dataset.productId;
-            const productName = button.dataset.productName;
-            const productPrice = parseFloat(button.dataset.productPrice);
-
-            if (!cart[productId]) {
-                cart[productId] = {
-                    name: productName,
-                    price: productPrice,
-                    quantity: 1
-                };
-            } else {
-                cart[productId].quantity++;
-            }
-
-            updateCartDisplay();
-            cartModal.show();
-        });
-    });
-
-    function updateCartDisplay() {
-        let cartHTML = '';
-        let cartTotal = 0;
-
-        Object.keys(cart).forEach(productId => {
-            const item = cart[productId];
-            cartHTML += `
-                <div class="cart-item">
-                    <div class="row">
-                        <div class="col-8">
-                            <span>${item.name}</span>
-                        </div>
-                        <div class="col-2">
-                            <span>${item.price} CFA</span>
-                        </div>
-                        <div class="col-2">
-                            <span>${item.quantity}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-            cartTotal += item.price * item.quantity;
-        });
-
-        cartItemsContainer.innerHTML = cartHTML;
-        cartTotalElement.textContent = `${cartTotal} CFA`;
-
-        cartCountElement.textContent = Object.keys(cart).length;
-    }
-
-    placeOrderButton.addEventListener('click', () => {
-        // Logic to place the order goes here
-        console.log('Order placed:', cart);
-        cart = {};
-        updateCartDisplay();
-        cartModal.hide();
-    });
-});
-
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('js/commande.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
