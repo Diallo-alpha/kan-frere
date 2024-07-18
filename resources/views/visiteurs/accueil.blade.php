@@ -50,16 +50,16 @@
           <a href="#" class="nav-link">Contact</a>
         </nav>
         <div class="actions">
-          <a href="#" class="action-link">
-            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="8" cy="21" r="1" />
-              <circle cx="19" cy="21" r="1" />
-              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
-            </svg>
-            <span class="cart-count"></span>
-            <span class="sr-only">Panier</span>
-          </a>
-          <a href="{{ route('afficherFormConnexion') }}" class="btn btn-primary">Connexion</a>
+            <a href="#" class="action-link cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="8" cy="21" r="1" />
+                    <circle cx="19" cy="21" r="1" />
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                </svg>
+                <span class="cart-count">0</span>
+                <span class="sr-only">Panier</span>
+            </a>
+            <a href="{{ route('afficherFormConnexion') }}" class="btn btn-primary">Connexion</a>
         </div>
       </header>
 
@@ -118,41 +118,64 @@
     <br>
     <br>
 
-<section id="products">
-    <div class="container py-3 w-100 px-3">
-        <h2 class="mb-4">Produits</h2>
-        <div class="row">
-            @foreach($produits as $produit)
-                <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}">
-                        <div class="card-body">
-                            <h6 class="font-weight-bold pt-1">{{ $produit->nom }}</h6>
-                            <div class="text-muted description">{{ $produit->description }}</div>
-                            <div class="d-flex align-items-center product">
-                                <span class="fas fa-star"></span>
-                                <span class="fas fa-star"></span>
-                                <span class="fas fa-star"></span>
-                                <span class="fas fa-star"></span>
-                                <span class="far fa-star"></span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between pt-3">
-                                <div class="d-flex flex-column">
-                                    <div class="h6 font-weight-bold">{{ $produit->prix }} CFA</div>
+    <section id="products">
+        <div class="container py-3 w-100 px-3">
+            <h2 class="mb-4">Produits</h2>
+            <div class="row">
+                @foreach($produits as $produit)
+                    <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}">
+                            <div class="card-body">
+                                <h6 class="font-weight-bold pt-1">{{ $produit->nom }}</h6>
+                                <div class="text-muted description">{{ $produit->description }}</div>
+                                <div class="d-flex align-items-center product">
+                                    <span class="fas fa-star"></span>
+                                    <span class="fas fa-star"></span>
+                                    <span class="fas fa-star"></span>
+                                    <span class="fas fa-star"></span>
+                                    <span class="far fa-star"></span>
                                 </div>
-                                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                                    <button type="submit" class="btn btn-primary">Acheter</button>
-                                </form>
+                                <div class="d-flex align-items-center justify-content-between pt-3">
+                                    <div class="d-flex flex-column">
+                                        <div class="h6 font-weight-bold">{{ $produit->prix }} CFA</div>
+                                    </div>
+                                    <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                        <button type="submit" class="btn btn-primary add-to-cart" data-id="{{ $produit->id }}" data-nom="{{ $produit->nom }}" data-prix="{{ $produit->prix }}">Acheter</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal du panier -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Panier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            @endforeach
+                <div class="modal-body">
+                    <div id="cartItems"></div>
+                    <div class="text-end">
+                        <strong>Total : </strong><span id="cartTotal">0 CFA</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" href="{{ route('commandes.creer', $produit->id) }}">Commander</button>
+                </div>
+            </div>
         </div>
     </div>
-    <section class=" container contact">
+    <section id=" container contact">
         <div class="form4 top">
             <div class="container">
                 <h2 class="mb-4">Nous contactez</h2>
@@ -181,56 +204,95 @@
         </div>
     </section>
 </section>
-<div id="container">
-    <div id="part1">
-        <div id="companyinfo">
-            <a id="sitelink" href="#">KAN&FRERE</a>
-            <p id="title">Produits Alimentaires de Qualité</p>
-            <p id="detail">Nous proposons une sélection exceptionnelle de produits alimentaires pour une expérience culinaire inoubliable.</p>
+<footer>
+    <div id="container">
+        <div id="part1">
+            <div id="companyinfo">
+                <a id="sitelink" href="#">KAN&FRERE</a>
+                <p id="title">Produits Alimentaires de Qualité</p>
+                <p id="detail">Nous proposons une sélection exceptionnelle de produits alimentaires pour une expérience culinaire inoubliable.</p>
+            </div>
+            <div id="explore">
+                <p id="txt1">Explorer</p>
+                <a class="link" href="#">Accueil</a>
+                <a class="link" href="#">À Propos</a>
+                <a class="link" href="#">Produits</a>
+                <a class="link" href="#">Contact</a>
+            </div>
+            <div id="visit">
+                <p id="txt2">Visitez-nous</p>
+                <p class="text">KAN&FRERE</p>
+                <p class="text">Sacré coeur 3</p>
+                <p class="text">DAKAR</p>
+                <p class="text">Téléphone : +221781111111</p>
+                <p class="text">Fax : 331111111</p>
+            </div>
+            <div id="legal">
+                <p id="txt3">Légal</p>
+                <a class="link1" href="#">Termes et Conditions</a>
+                <a class="link1" href="#">Politique de Confidentialité</a>
+            </div>
+            <div id="subscribe">
+                <p id="txt4">Abonnez-vous</p>
+                <form>
+                    <input id="email" type="email" placeholder="Email">
+                </form>
+                <a class="waves-effect waves-light btn">S'abonner</a>
+                <p id="txt5">Suivez-nous</p>
+                <i class="fab fa-facebook-square social fa-2x"></i>
+                <i class="fab fa-linkedin social fa-2x"></i>
+                <i class="fab fa-twitter-square social fa-2x"></i>
+            </div>
         </div>
-        <div id="explore">
-            <p id="txt1">Explorer</p>
-            <a class="link" href="#">Accueil</a>
-            <a class="link" href="#">À Propos</a>
-            <a class="link" href="#">Produits</a>
-            <a class="link" href="#">Contact</a>
-        </div>
-        <div id="visit">
-            <p id="txt2">Visitez-nous</p>
-            <p class="text">KAN&FRERE</p>
-            <p class="text">Sacré coeur 3</p>
-            <p class="text">DAKAR</p>
-            <p class="text">Téléphone : +221781111111</p>
-            <p class="text">Fax : 331111111</p>
-        </div>
-        <div id="legal">
-            <p id="txt3">Légal</p>
-            <a class="link1" href="#">Termes et Conditions</a>
-            <a class="link1" href="#">Politique de Confidentialité</a>
-        </div>
-        <div id="subscribe">
-            <p id="txt4">Abonnez-vous</p>
-            <form>
-                <input id="email" type="email" placeholder="Email">
-            </form>
-            <a class="waves-effect waves-light btn">S'abonner</a>
-            <p id="txt5">Suivez-nous</p>
-            <i class="fab fa-facebook-square social fa-2x"></i>
-            <i class="fab fa-linkedin social fa-2x"></i>
-            <i class="fab fa-twitter-square social fa-2x"></i>
+        <div id="part2">
+            <p id="txt6"><i class="material-icons tiny"></i>&copy; 2024 Boutique KAN&FRERE - Tous droits réservés</p>
         </div>
     </div>
-    <div id="part2">
-        <p id="txt6"><i class="material-icons tiny"></i>&copy; 2024 Boutique KAN&FRERE - Tous droits réservés</p>
-    </div>
-</div>
-
-    <script src="{{ asset('js/commande.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+</footer>
     <script>
-        $(document).ready(function() {
-            $('#carouselExampleControls').carousel();
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const cartCountElement = document.querySelector('.cart-count');
+            const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotalElement = document.getElementById('cartTotal');
+            let cart = [];
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', event => {
+                    event.preventDefault();
+                    const id = button.getAttribute('data-id');
+                    const nom = button.getAttribute('data-nom');
+                    const prix = parseFloat(button.getAttribute('data-prix'));
+
+                    const existingItemIndex = cart.findIndex(item => item.id === id);
+
+                    if (existingItemIndex > -1) {
+                        cart[existingItemIndex].quantity += 1;
+                    } else {
+                        cart.push({ id, nom, prix, quantity: 1 });
+                    }
+
+                    updateCart();
+                });
+            });
+
+            function updateCart() {
+                cartCountElement.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>${item.nom} x ${item.quantity}</div>
+                        <div>${item.prix * item.quantity} CFA</div>
+                    </div>
+                `).join('');
+
+                const total = cart.reduce((sum, item) => sum + item.prix * item.quantity, 0);
+                cartTotalElement.textContent = `${total} CFA`;
+            }
         });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
