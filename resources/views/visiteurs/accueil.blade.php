@@ -50,7 +50,7 @@
           <a href="#" class="nav-link">Contact</a>
         </nav>
         <div class="actions">
-            <a href="#" class="action-link cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+            <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="8" cy="21" r="1" />
                     <circle cx="19" cy="21" r="1" />
@@ -143,7 +143,7 @@
                                     <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                                        <button type="submit" class="btn btn-primary add-to-cart" data-id="{{ $produit->id }}" data-nom="{{ $produit->nom }}" data-prix="{{ $produit->prix }}">Acheter</button>
+                                        <button type="submit" class="btn btn-primary add-to-cart" data-id="{{ $produit->id }}" data-nom="{{ $produit->nom }}" data-prix="{{ $produit->prix }}"  href="{{ route('commandes.afficherPanier') }}">Acheter</button>
                                     </form>
                                 </div>
                             </div>
@@ -249,47 +249,77 @@
         </div>
     </div>
 </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const addToCartButtons = document.querySelectorAll('.add-to-cart');
-            const cartCountElement = document.querySelector('.cart-count');
-            const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
-            const cartItemsContainer = document.getElementById('cartItems');
-            const cartTotalElement = document.getElementById('cartTotal');
-            let cart = [];
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const cartCountElement = document.querySelector('.cart-count');
+    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotalElement = document.getElementById('cartTotal');
+    const placeOrderButton = document.getElementById('placeOrder');
 
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', event => {
-                    event.preventDefault();
-                    const id = button.getAttribute('data-id');
-                    const nom = button.getAttribute('data-nom');
-                    const prix = parseFloat(button.getAttribute('data-prix'));
+    let cart = {};
 
-                    const existingItemIndex = cart.findIndex(item => item.id === id);
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.dataset.productId;
+            const productName = button.dataset.productName;
+            const productPrice = parseFloat(button.dataset.productPrice);
 
-                    if (existingItemIndex > -1) {
-                        cart[existingItemIndex].quantity += 1;
-                    } else {
-                        cart.push({ id, nom, prix, quantity: 1 });
-                    }
-
-                    updateCart();
-                });
-            });
-
-            function updateCart() {
-                cartCountElement.textContent = cart.reduce((total, item) => total + item.quantity, 0);
-                cartItemsContainer.innerHTML = cart.map(item => `
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>${item.nom} x ${item.quantity}</div>
-                        <div>${item.prix * item.quantity} CFA</div>
-                    </div>
-                `).join('');
-
-                const total = cart.reduce((sum, item) => sum + item.prix * item.quantity, 0);
-                cartTotalElement.textContent = `${total} CFA`;
+            if (!cart[productId]) {
+                cart[productId] = {
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                };
+            } else {
+                cart[productId].quantity++;
             }
+
+            updateCartDisplay();
+            cartModal.show();
         });
+    });
+
+    function updateCartDisplay() {
+        let cartHTML = '';
+        let cartTotal = 0;
+
+        Object.keys(cart).forEach(productId => {
+            const item = cart[productId];
+            cartHTML += `
+                <div class="cart-item">
+                    <div class="row">
+                        <div class="col-8">
+                            <span>${item.name}</span>
+                        </div>
+                        <div class="col-2">
+                            <span>${item.price} CFA</span>
+                        </div>
+                        <div class="col-2">
+                            <span>${item.quantity}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            cartTotal += item.price * item.quantity;
+        });
+
+        cartItemsContainer.innerHTML = cartHTML;
+        cartTotalElement.textContent = `${cartTotal} CFA`;
+
+        cartCountElement.textContent = Object.keys(cart).length;
+    }
+
+    placeOrderButton.addEventListener('click', () => {
+        // Logic to place the order goes here
+        console.log('Order placed:', cart);
+        cart = {};
+        updateCartDisplay();
+        cartModal.hide();
+    });
+});
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
