@@ -50,13 +50,13 @@
         <a href="#" class="nav-link">Contact</a>
     </nav>
     <div class="actions">
-        <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
                 <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
             </svg>
-            <span class="cart-count">0</span>
+            <span id="cart-count" class="cart-count">0</span>
             <span class="sr-only">Panier</span>
         </a>
         @if(auth()->check())
@@ -94,7 +94,7 @@
                             <br>
                         </div>
                         <div class="col-md-5 col-12 order-md-2 order-1">
-                            <img src="{{ asset('images/mango-still-life.jpg') }}" class="mx-auto" alt="Fruits Frais"> <br> <br>
+                            <img src="{{ asset('images/pannier.jpg') }}" class="mx-auto" alt="Fruits Frais"> <br> <br>
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                                 <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                                    <button type="button" class="btn btn-primary add-to-cart" data-id="{{ $produit->id }}" data-nom="{{ $produit->nom }}" data-prix="{{ $produit->prix }}">Acheter</button>
+                                    <button type="submit" class="btn btn-primary acheter" data-id="{{ $produit->id }}">Acheter</button>
                                 </form>
                             </div>
                         </div>
@@ -157,48 +157,6 @@
         </div>
     </div>
 </section>
-
-<!-- Modal du panier -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">Panier</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Produit</th>
-                            <th>Prix</th>
-                            <th>Quantité</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cartItemsContainer">
-                        <!-- Contenu du panier généré par JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <form action="{{ route('commandes.creer') }}" method="POST">
-                    @csrf
-                    <!-- Inclure les éléments du panier comme champs cachés -->
-                    <div id="cartFormItems"></div>
-                    <button type="submit" class="btn btn-primary">Commander</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Total du panier -->
-<div class="container">
-    <h4>Total : <span id="cartTotal">0 CFA</span></h4>
-</div>
     </div>
     <section id=" container contact">
         <div class="form4 top">
@@ -274,6 +232,7 @@
         </div>
     </div>
 </footer>
+
 <script src="{{ asset('js/commande.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

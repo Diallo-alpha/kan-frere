@@ -61,7 +61,7 @@ class CommandeController extends Controller
             $commande->user_id = Auth::id();
             $commande->total = $total;
             $commande->reference = 'REF' . time();
-            $commande->etat_commande = 'en_attente';
+            $commande->etat_commande = 'en_cours';
             $commande->save();
 
             foreach ($panier as $id => $item) {
