@@ -45,8 +45,14 @@ class ProduitController extends Controller
 
         $imageName = null;
         if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            if ($request->file('image')->isValid()) {
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('images'), $imageName);
+            } else {
+                return back()->withErrors(['image' => 'Le fichier du champ image n\'a pu être téléversé.']);
+            }
+        } else {
+            return back()->withErrors(['image' => 'Aucun fichier n\'a été téléchargé.']);
         }
 
         Produit::create([
@@ -61,6 +67,7 @@ class ProduitController extends Controller
 
         return redirect()->route('produits.list')->with('success', 'Produit ajouté avec succès !');
     }
+
 
     public function detaillesProduit($id)
     {

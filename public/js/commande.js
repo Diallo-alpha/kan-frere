@@ -48,4 +48,20 @@ document.addEventListener('DOMContentLoaded', function() {
             updateTotalPrice();
         }
     });
+
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const cartCount = document.getElementById('cart-count');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Empêcher la soumission du formulaire
+
+            // Incrémenter le compteur de panier
+            let count = parseInt(cartCount.textContent);
+            cartCount.textContent = count + 1;
+
+            // Soumettre le formulaire après avoir incrémenté le compteur
+            this.closest('form').submit();
+        });
+    });
 });

@@ -12,53 +12,58 @@
     <title>Pannier</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container d-flex justify-content-between">
-            <div>
+    <header class="header">
+        <div class="logo">
+            <a href="#">
                 <h1 class="text-success">Kan&frere</h1>
-            </div>
-            <div class="navbar navbar-expand-lg bg-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+            </a>
+        </div>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="dropbtn">Boutique
+                    <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" aria-current="page" href="{{route('accueilCategories')}}">Accueil</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">A propos</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Produits</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Contact</a>
-                        </li>
-                    </ul>
-                    <div class="position-relative">
-                        <a href="" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-magnifying-glass nav-icon"></i>
-                        </a>
-                        <a href="" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-cart-arrow-down nav-icon"></i>
-                        </a>
-                        @auth
-                        <a href="{{ route('deconnexion') }}" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-sign-out-alt nav-icon">Déconnexion</i>
-                        </a>
-                        @else
-                        <a href="{{ route('afficherFormConnexion') }}" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-user nav-icon">connexion</i>
-                        </a>
-                        <a href="{{ route('form.inscription') }}" class="btn btn-primary ml-3">S'inscrire</a>
-                        @endauth
-                    </div>
+                <div class="dropdown-content">
+                    <a href="#">Fruits</a>
+                    <a href="#">Légumes</a>
+                    <a href="#">Produits Bio</a>
+                    <a href="#">Accessoires</a>
                 </div>
             </div>
+            <div class="dropdown">
+                <button class="dropbtn">Promotions
+                    <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Fruits</a>
+                    <a href="#">Légumes</a>
+                    <a href="#">Produits Bio</a>
+                    <a href="#">Accessoires</a>
+                </div>
+            </div>
+            <a href="#" class="nav-link">Contact</a>
+        </nav>
+        <div class="actions">
+            <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="8" cy="21" r="1" />
+                    <circle cx="19" cy="21" r="1" />
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                </svg>
+                <span id="cart-count" class="cart-count">0</span>
+                <span class="sr-only">Panier</span>
+            </a>
+            @if(auth()->check())
+                <a href="{{ route('deconnexion') }}" class="btn btn-primary">Déconnexion</a>
+            @else
+                <a href="{{ route('afficherFormConnexion') }}" class="btn btn-primary">Connexion</a>
+            @endif
         </div>
-        <a href="{{ route('commandes.afficherPanier') }}" class="btn btn-primary ml-3"><i class='bx bx-shopping-bag'id="shopicon" ></i></a>
-    </nav>
+    </header>
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Votre Panier</h1>

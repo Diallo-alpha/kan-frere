@@ -13,7 +13,6 @@ class CommandeController extends Controller
         $commandes = Commande::all();
         return view('utilisateurs.admins.listeCommande', compact('commandes'));
     }
-
     public function ajouterCommande(Request $request, $id)
     {
         if (Auth::check()) {
@@ -62,6 +61,7 @@ class CommandeController extends Controller
             $commande->user_id = Auth::id();
             $commande->total = $total;
             $commande->reference = 'REF' . time();
+            $commande->etat_commande = 'en_cours';
             $commande->save();
 
             foreach ($panier as $id => $item) {
@@ -73,12 +73,11 @@ class CommandeController extends Controller
 
             Session::forget('panier');
 
-            return redirect('/')->with('success', 'Commande créée avec succès. Total: ' . $commande->total . ' Frans');
+            return redirect('/')->with('success', 'Commande créée avec succès. Total: ' . $commande->total . ' CFA');
         } else {
             return redirect()->route('afficherFormConnexion')->with('error', 'Vous devez être connecté pour créer une commande.');
         }
     }
-
     public function supprimerDuPanier($id)
     {
         $panier = Session::get('panier', []);

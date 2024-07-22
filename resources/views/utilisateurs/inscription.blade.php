@@ -5,54 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2 class="mt-5 mb-4">Inscription</h2>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    <div class="limit">
+        <div class="login-container">
+            <div class="bb-login">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('inscription') }}" class="bb-form validate-form">
+                    @csrf
+                    <span class="bb-form-title p-b-26">Créer un compte</span>
+                    <span class="bb-form-title p-b-48"><i class="mdi mdi-symfony"></i></span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Veuillez saisir votre nom">
+                        <input class="input100" id="nom" type="text" name="nom" placeholder="Nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Veuillez saisir votre prénom">
+                        <input class="input100" id="prenom" type="text" name="prenom" placeholder="Prénom" value="{{ old('prenom') }}" required autocomplete="prenom">
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+                        <input class="input100" id="email" type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required autocomplete="email">
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Enter phone number">
+                        <input class="input100" id="telephone" type="text" name="telephone" placeholder="Numéro de téléphone" value="{{ old('telephone') }}">
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <span class="btn-show-pass"><i class="mdi mdi-eye show_password"></i></span>
+                        <input class="input100" id="password" type="password" name="password" placeholder="Mot de passe" required autocomplete="new-password">
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Confirm password">
+                        <span class="btn-show-pass"><i class="mdi mdi-eye show_password"></i></span>
+                        <input class="input100" id="password_confirmation" type="password" name="password_confirmation" placeholder="Confirmer le mot de passe" required autocomplete="new-password">
+                    </div>
+
+                    <input type="hidden" name="role" value="client">
+
+                    <div class="login-container-form-btn">
+                        <div class="bb-login-form-btn">
+                            <div class="bb-form-bgbtn"></div>
+                            <button type="submit" class="bb-form-btn">Incrire</button>
+                        </div>
+                    </div>
+
+                    <div class="text-center p-t-115">
+                        <span class="txt1">Vous avez déjà un compte?</span>
+                        <a class="txt2" href="{{ route('afficherFormConnexion') }}">Se connecter</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    @endif
-        <form action="{{ route('inscription') }}" method="post">
-            @csrf
-            <div class="form-group">
-                <label for="nom">Nom</label>
-                <input id="nom" class="form-control" type="text" name="nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
-            </div>
-            <div class="form-group">
-                <label for="prenom">Prénom</label>
-                <input id="prenom" class="form-control" type="text" name="prenom" value="{{ old('prenom') }}" required autocomplete="prenom">
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
-            </div>
-            <div class="form-group">
-                <label for="password_confirmation">Confirmer le mot de passe</label>
-                <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password">
-            </div>
-            @if(auth()->user() && auth()->user()->isAdmin())
-            <div class="form-group">
-                <label for="role">Rôle</label>
-                <select id="role" class="form-control" name="role">
-                    <option value="client">Client</option>
-                    <option value="admin">Administrateur</option>
-                </select>
-            </div>
-            @else
-                <input type="hidden" name="role" value="client">
-            @endif
-            <button type="submit" class="btn btn-primary">S'inscrire</button>
-        </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>

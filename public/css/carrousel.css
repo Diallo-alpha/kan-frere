@@ -1,0 +1,39 @@
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    background-image: url('../images/back.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+}
+
+.hero-text {
+    max-width: 50%;
+}
+.hero-text h1 {
+    font-size: 48px;
+    color: #ffff;
+}
+.hero-text h1 span {
+    color: #fff;
+}
+.hero-text p {
+    color: #fff;
+    margin: 20px 0;
+}
+.btn-shop1{
+    background-color: #fff;
+    color: #32a852;
+    border-radius: 20px;
+    padding: 10px 20px;
+  border: none;
+  font-weight: bolder;
+  font-size: 20px;
+}
+.hero-image img {
+    max-width: 400% !important;
+    height: 200px;
+    border-radius: 20px;
+}

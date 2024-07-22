@@ -8,165 +8,207 @@
     <link href="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-8FGzKlYc+aUU3GxOKGJI/tFUWkswOAhIsH73/2MCdvfiuYQzg+u9BjMvYDBuebKNTpnujps2l1rhjJkxZlP0Kg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/carrousel.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>Accueil</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container d-flex justify-content-between">
-            <div>
-                <h1 class="text-success">Kan&frere</h1>
-            </div>
-            <div class="navbar navbar-expand-lg bg-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" aria-current="page" href="{{route('accueilCategories')}}">Accueil</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">A propos</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Produits</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Contact</a>
-                        </li>
-                    </ul>
-                    <div class="position-relative">
-                        <a href="" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-magnifying-glass nav-icon"></i>
-                        </a>
-                        <a href="" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-cart-arrow-down nav-icon"></i>
-                        </a>
-                        @auth
-                        <a href="{{ route('deconnexion') }}" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-sign-out-alt nav-icon">Déconnexion</i>
-                        </a>
-                        @else
-                        <a href="{{ route('afficherFormConnexion') }}" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-user nav-icon">connexion</i>
-                        </a>
-                        <a href="{{ route('form.inscription') }}" class="btn btn-primary ml-3">S'inscrire</a>
-                        @endauth
-                    </div>
-                </div>
+<header class="header">
+    <div class="logo">
+        <a href="{{route('accueilCategories')}}">
+            <h1 class="text-success">Kan&frere</h1>
+        </a>
+    </div>
+    <nav class="nav">
+        <div class="dropdown">
+            <button class="dropbtn">Boutique
+                <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Fruits</a>
+                <a href="#">Légumes</a>
+                <a href="#">Produits Bio</a>
+                <a href="#">Accessoires</a>
             </div>
         </div>
-        <a href="{{ route('commandes.afficherPanier') }}" class="btn btn-primary ml-3"><i class='bx bx-shopping-bag'id="shopicon" ></i></a>
+        <div class="dropdown">
+            <button class="dropbtn">Promotions
+                <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Fruits</a>
+                <a href="#">Légumes</a>
+                <a href="#">Produits Bio</a>
+                <a href="#">Accessoires</a>
+            </div>
+        </div>
+        <a href="#" class="nav-link">Contact</a>
     </nav>
-    {{-- Affichage des messages de succès et d'erreur --}}
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+    <div class="actions">
+        <a href="{{ route('commandes.afficherPanier') }}" class="action-link cart-icon">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+            </svg>
+            <span id="cart-count" class="cart-count">0</span>
+            <span class="sr-only">Panier</span>
+        </a>
+        @if(auth()->check())
+            <a href="{{ route('deconnexion') }}" class="btn btn-primary">Déconnexion</a>
+        @else
+            <a href="{{ route('afficherFormConnexion') }}" class="btn btn-primary">Connexion</a>
+        @endif
+    </div>
+</header>
 
-    {{-- Carrousel --}}
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+{{-- Affichage des messages de succès et d'erreur --}}
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
-    <br>
-    <br>
-  {{-- Section des produits --}}
-<section class="shop container">
-    <h2 class="section-title">Produit Boutique</h2>
-    <div class="shop-content">
-        @foreach($produits as $produit)
-            <div class="product-box">
-                <img src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}" class="prod-img">
-                <h2 class="product-title">{{ $produit->nom }}</h2>
-                <p>{{ $produit->description }}</p>
-                <span class="price">{{ $produit->prix }} Frans</span>
-                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                    <button type="submit" class="btn btn-primary">
-                        <i class='bx bx-shopping-bag add-cart'></i>
-                    </button>
-                </form>
-            </div>
-        @endforeach
+@endif
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
     </div>
-</section>
-    {{-- Cartes --}}
-    <div class="container mt-5">
-        <h2 class="mb-4">Nos categories</h2>
-        <div class="conteneur-cartes row">
-            @foreach($categories as $categorie)
-                <div class="carte-produit col-md-4 mb-4">
-                    <div class="details-produit">
-                        <div class="categorie col-md-3 mb-4">
-                            @if ($categorie->image)
-                                <img src="{{ asset('images/categories/' . $categorie->image) }}" class="img-fluid" alt="{{ $categorie->libelle }}">
-                            @else
-                                <img src="https://via.placeholder.com/150" class="img-fluid" alt="Image par défaut">
-                            @endif
-                            <p class="mt-2">{{ $categorie->libelle }}</p>
+@endif
+
+{{-- Carrousel --}}
+<div class="hero-section">
+    <div class="hero-text">
+        <h1>
+            Nous fournissons les meilleurs
+            <span>aliments </span> pour vous
+        </h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis ut interdum duis tellus. Suspendisse pharetra feugiat lacus eu.
+        </p>
+        <button class="btn btn-shop1">Acheter Maintenant</button>
+    </div>
+</div>
+<br>
+<br>
+
+<section id="products">
+    <div class="container py-3 w-100 px-3">
+        <h2 class="mb-4">Produits</h2>
+        <div class="row">
+            @foreach($produits as $produit)
+                <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}">
+                        <div class="card-body">
+                            <h6 class="font-weight-bold pt-1">{{ $produit->nom }}</h6>
+                            <div class="text-muted description">{{ $produit->description }}</div>
+                            <div class="d-flex align-items-center product">
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="fas fa-star"></span>
+                                <span class="far fa-star"></span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between pt-3">
+                                <div class="d-flex flex-column">
+                                    <div class="h6 font-weight-bold">{{ $produit->prix }} CFA</div>
+                                </div>
+                                <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                    <button type="submit" class="btn btn-primary acheter" data-id="{{ $produit->id }}">Acheter</button>
+                                </form>
+                            </div>
                         </div>
-                        <button class="btn btn-secondary">Voir Détails</button>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-    {{-- Contact --}}
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h4>A propos de nous</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.</p>
-                </div>
-                <div class="col-md-4">
-                    <h4>Naviguer</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Accueil</a></li>
-                        <li><a href="#">A propos</a></li>
-                        <li><a href="#">Produits</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h4>Suivez-nous</h4>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+</section>
+    </div>
+    <section id=" container contact">
+        <div class="form4 top">
+            <div class="container">
+                <h2 class="mb-4">Nous contactez</h2>
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-4">
+                        <div class="form-bg">
+                            <form class="form">
+                                <div class="form-group">
+                                    <label class="sr-only">Nome</label>
+                                    <input type="text" class="form-control" required="" id="nameNine" placeholder="Nome">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Email</label>
+                                    <input type="email" class="form-control" required="" id="emailNine" placeholder="Addresse mail">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Name</label>
+                                    <textarea class="form-control" required="" rows="7" id="messageNine" placeholder="Message"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    <script src="{{ asset('js/commande.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    </section>
+</section>
+<footer>
+    <div id="container">
+        <div id="part1">
+            <div id="companyinfo">
+                <a id="sitelink" href="#">KAN&FRERE</a>
+                <p id="title">Produits Alimentaires de Qualité</p>
+                <p id="detail">Nous proposons une sélection exceptionnelle de produits alimentaires pour une expérience culinaire inoubliable.</p>
+            </div>
+            <div id="explore">
+                <p id="txt1">Explorer</p>
+                <a class="link" href="#">Accueil</a>
+                <a class="link" href="#">À Propos</a>
+                <a class="link" href="#">Produits</a>
+                <a class="link" href="#">Contact</a>
+            </div>
+            <div id="visit">
+                <p id="txt2">Visitez-nous</p>
+                <p class="text">KAN&FRERE</p>
+                <p class="text">Sacré coeur 3</p>
+                <p class="text">DAKAR</p>
+                <p class="text">Téléphone : +221781111111</p>
+                <p class="text">Fax : 331111111</p>
+            </div>
+            <div id="legal">
+                <p id="txt3">Légal</p>
+                <a class="link1" href="#">Termes et Conditions</a>
+                <a class="link1" href="#">Politique de Confidentialité</a>
+            </div>
+            <div id="subscribe">
+                <p id="txt4">Abonnez-vous</p>
+                <form>
+                    <input id="email" type="email" placeholder="Email">
+                </form>
+                <a class="waves-effect waves-light btn">S'abonner</a>
+                <p id="txt5">Suivez-nous</p>
+                <i class="fab fa-facebook-square social fa-2x"></i>
+                <i class="fab fa-linkedin social fa-2x"></i>
+                <i class="fab fa-twitter-square social fa-2x"></i>
+            </div>
+        </div>
+        <div id="part2">
+            <p id="txt6"><i class="material-icons tiny"></i>&copy; 2024 Boutique KAN&FRERE - Tous droits réservés</p>
+        </div>
+    </div>
+</footer>
+
+<script src="{{ asset('js/commande.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
