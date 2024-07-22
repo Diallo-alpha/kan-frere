@@ -52,10 +52,9 @@
                     <div class="nav-item {{ request()->routeIs('activite') ? 'active' : '' }}">
                         <a href="#"><i class="fas fa-history"></i> Activité</a>
                     </div>
-                    <div class="nav-item">
-                        <a href="#"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                    <div class="nav-item {{ request()->routeIs('deconnexion') ? 'active' : '' }}">
+                        <a href="{{  route('deconnexion') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
                     </div>
-                </div>
             </nav>
         </div>
         <div class="content p-4" style="flex-grow: 1;">
