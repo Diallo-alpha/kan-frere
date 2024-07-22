@@ -16,7 +16,7 @@
             </div>
             <nav class="nav flex-column">
                 <div class="nav-item active">
-                    <a href="#"><i class="fas fa-home"></i> Accueil</a>
+                    <a href="{{route('accueilCategories')}}"><i class="fas fa-home"></i> Accueil</a>
                 </div>
                 <div class="nav-item">
                     <a href="{{ route('ajouterProduit') }}"><i class="fas fa-box"></i> Ajouter un produit</a>
