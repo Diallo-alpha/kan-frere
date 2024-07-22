@@ -20,6 +20,7 @@ class CheckAdmin
         if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
         }
-        return redirect('/'); // Redirigez les utilisateurs non autorisés vers une autre page
+
+        return redirect()->route('accueilCategories')->withErrors(['Vous n\'avez pas les droits d\'accès nécessaires.']);
     }
 }

@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         return view('utilisateurs.connexion');
     }
-
+ 
     public function connexion(Request $request)
     {
         $request->validate([
@@ -65,7 +65,7 @@ class UserController extends Controller
                 // Rediriger les utilisateurs client vers la page d'accueil
                 return redirect('/');
             }
- 
+
             // Rediriger les autres utilisateurs vers une autre page ou afficher une erreur
             Auth::logout();
             return redirect()->route('afficherFormConnexion')->withErrors([
