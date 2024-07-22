@@ -16,7 +16,7 @@
 <body>
 <header class="header">
     <div class="logo">
-        <a href="#">
+        <a href="{{route('accueilCategories')}}">
             <h1 class="text-success">Kan&frere</h1>
         </a>
     </div>
@@ -90,9 +90,6 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis ut interdum duis tellus. Suspendisse pharetra feugiat lacus eu.
         </p>
         <button class="btn btn-shop1">Acheter Maintenant</button>
-    </div>
-    <div class="hero-image">
-        <img src="https://img.freepik.com/vecteurs-libre/illustration-panier-noel-degrade_23-2149205386.jpg?t=st=1721646952~exp=1721650552~hmac=47da7b6175a06184c1ddfa2d53c423be05345732a92f4024df93e67193c5b9d0&w=826" alt="Panier de divers fruits et légumes bio frais" width="600" height="400">
     </div>
 </div>
 <br>

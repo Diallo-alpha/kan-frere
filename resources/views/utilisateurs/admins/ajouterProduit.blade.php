@@ -3,54 +3,7 @@
 @section('title', 'Ajouter un Produit')
 
 @section('content')
-<div class="d-flex">
-    <div class="sidebar">
-        <div class="text-center mb-4">
-            <span>KAN&FRERE</span>
-        </div>
-        <nav class="nav flex-column">
-            <div class="nav-item active">
-                <a href="#"><i class="fas fa-home"></i> Accueil</a>
-            </div>
-            <div class="nav-item">
-                <a href="{{ route('ajouterProduit') }}"><i class="fas fa-box"></i> Ajouter un produit</a>
-            </div>
-            <div class="nav-item">
-                <a href="{{ route('commandes.liste') }}"><i class="fas fa-list"></i> Voir les commandes</a>
-            </div>
-            <div class="nav-item">
-                <a href="{{ route('listeCategories') }}"><i class="fas fa-list"></i> Voir les catégories</a>
-            </div>
-            <div class="nav-item">
-                <a href="#"><i class="fas fa-chart-bar"></i> Vue d'ensemble</a>
-            </div>
-            <div class="nav-item">
-                <a href="#"><i class="fas fa-warehouse"></i> Stock</a>
-            </div>
-            <div class="nav-item">
-                <a href="#"><i class="fas fa-file-alt"></i> Rapports</a>
-            </div>
-            <div class="nav-item">
-                <a href="#"><i class="fas fa-exchange-alt"></i> Transfert de données</a>
-            </div>
-            <div class="nav-item">
-                <a href="#"><i class="fas fa-question-circle"></i> Aide</a>
-            </div>
-            <div class="mt-4">
-                <h6>Paramètres et Compte</h6>
-                <div class="nav-item">
-                    <a href="#"><i class="fas fa-cog"></i> Paramètres du compte</a>
-                </div>
-                <div class="nav-item">
-                    <a href="#"><i class="fas fa-history"></i> Activité</a>
-                </div>
-                <div class="nav-item">
-                    <a href="#"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2>Ajouter un Produit</h2>
@@ -118,7 +71,7 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <br>
                     <button type="submit" class="btn btn-primary">Ajouter</button>
                 </form>
             </div>

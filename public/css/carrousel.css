@@ -3,14 +3,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 50px;
-    background:#48b83ee8;
+    background-image: url('../images/back.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
 }
+
 .hero-text {
     max-width: 50%;
 }
 .hero-text h1 {
     font-size: 48px;
-    color: #000;
+    color: #ffff;
 }
 .hero-text h1 span {
     color: #fff;

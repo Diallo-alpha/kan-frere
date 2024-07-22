@@ -11,6 +11,53 @@
     <title>@yield('title', 'Dashboard')</title>
 </head>
 <body>
+    <div class="d-flex">
+        <div class="sidebar">
+            <div class="text-center mb-4">
+                <h1>KAN&FRERE</h1>
+            </div>
+            <nav class="nav flex-column">
+                <div class="nav-item {{ request()->routeIs('accueilCategories') ? 'active' : '' }}">
+                    <a href="{{ route('accueilCategories') }}"><i class="fas fa-home"></i> Accueil</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('ajouterProduit') ? 'active' : '' }}">
+                    <a href="{{ route('ajouterProduit') }}"><i class="fas fa-box"></i> Ajouter un produit</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('commandes.liste') ? 'active' : '' }}">
+                    <a href="{{ route('commandes.liste') }}"><i class="fas fa-list"></i> Voir les commandes</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('listeCategories') ? 'active' : '' }}">
+                    <a href="{{ route('listeCategories') }}"><i class="fas fa-list"></i> Voir les catégories</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('vueDensemble') ? 'active' : '' }}">
+                    <a href="#"><i class="fas fa-chart-bar"></i> Vue d'ensemble</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('stock') ? 'active' : '' }}">
+                    <a href="#"><i class="fas fa-warehouse"></i> Stock</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('rapports') ? 'active' : '' }}">
+                    <a href="#"><i class="fas fa-file-alt"></i> Rapports</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('transfertDonnees') ? 'active' : '' }}">
+                    <a href="#"><i class="fas fa-exchange-alt"></i> Transfert de données</a>
+                </div>
+                <div class="nav-item {{ request()->routeIs('aide') ? 'active' : '' }}">
+                    <a href="#"><i class="fas fa-question-circle"></i> Aide</a>
+                </div>
+                <div class="mt-4">
+                    <h6>Paramètres et Compte</h6>
+                    <div class="nav-item {{ request()->routeIs('parametresCompte') ? 'active' : '' }}">
+                        <a href="#"><i class="fas fa-cog"></i> Paramètres du compte</a>
+                    </div>
+                    <div class="nav-item {{ request()->routeIs('activite') ? 'active' : '' }}">
+                        <a href="#"><i class="fas fa-history"></i> Activité</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
         <div class="content p-4" style="flex-grow: 1;">
             @yield('content')
         </div>
