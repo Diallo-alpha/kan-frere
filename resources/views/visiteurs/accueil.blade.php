@@ -80,45 +80,21 @@
 @endif
 
 {{-- Carrousel --}}
-<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="mask flex-center">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-7 col-12 order-md-1 order-2">
-                            <br>
-                            <br>
-                            <h4>Fruits Frais</h4>
-                            <p>Découvrez notre sélection de fruits frais et juteux, parfaits pour une alimentation saine et équilibrée.</p>
-                            <br>
-                        </div>
-                        <div class="col-md-5 col-12 order-md-2 order-1">
-                            <img src="{{ asset('images/pannier.jpg') }}" class="mx-auto" alt="Fruits Frais"> <br> <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="mask flex-center">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-7 col-12 order-md-1 order-2">
-                            <h4>Légumes Bio</h4>
-                            <p>Nos légumes bio sont cultivés sans pesticides, pour le respect de votre santé et de l'environnement.</p>
-                            <br>
-                        </div>
-                        <div class="col-md-6 col-12 order-md-2 order-1">
-                            <img src="{{ asset('images/avocat.jpg') }}" class="mx-auto" alt="Légumes Bio">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="hero-section">
+    <div class="hero-text">
+        <h1>
+            Nous fournissons les meilleurs
+            <span>aliments </span> pour vous
+        </h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis ut interdum duis tellus. Suspendisse pharetra feugiat lacus eu.
+        </p>
+        <button class="btn btn-shop1">Acheter Maintenant</button>
+    </div>
+    <div class="hero-image">
+        <img src="https://img.freepik.com/vecteurs-libre/illustration-panier-noel-degrade_23-2149205386.jpg?t=st=1721646952~exp=1721650552~hmac=47da7b6175a06184c1ddfa2d53c423be05345732a92f4024df93e67193c5b9d0&w=826" alt="Panier de divers fruits et légumes bio frais" width="600" height="400">
     </div>
 </div>
-
 <br>
 <br>
 
