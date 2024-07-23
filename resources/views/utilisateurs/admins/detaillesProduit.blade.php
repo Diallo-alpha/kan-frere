@@ -105,14 +105,12 @@
         </div>
         <div class="col-md-6">
           <h1 class="product-title">{{ $produit->nom }}</h1>
-          <p class="product-price">{{ $produit->prix }} </p>
-          <p class="product-description">{{ $produit->etat }}</p>
-          <p class="product-description">{{ $produit->reference }}</p>
+          <p class="product-price"><b>Prix  </b>{{ $produit->prix }} </p>
+          <p class="product-description">le produits est en {{ $produit->etat }}</p>
           <p class="product-description">{{ $produit->description }}</p>
           <div class="d-flex align-items-center">
             <form action="{{ route('commandes.ajouter', $produit->id) }}" method="POST">
                 @csrf
-                <input type="hidden" name="produit_id" value="{{ $produit->id }}">
                 <button type="submit" class="btn btn-primary acheter" data-id="{{ $produit->id }}">Ajouter au pannier</button>
             </form>
           </div>
