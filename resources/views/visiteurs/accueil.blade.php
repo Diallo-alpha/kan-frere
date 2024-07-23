@@ -101,7 +101,7 @@
         <div class="row">
             @foreach($produits as $produit)
                 <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
-                    <div class="card">
+                    <div class="card" onclick="location.href='{{ route('afficherDetailsProduit', $produit->id) }}'" style="cursor: pointer;">
                         <img class="card-img-top" src="{{ asset('images/' . $produit->image) }}" alt="{{ $produit->nom }}">
                         <div class="card-body">
                             <h6 class="font-weight-bold pt-1">{{ $produit->nom }}</h6>

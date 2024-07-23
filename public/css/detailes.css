@@ -1,0 +1,38 @@
+.product-image {
+    object-fit: cover;
+    height: 100% !important;
+  }
+
+  .thumbnail-image {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .thumbnail-image.active {
+    opacity: 1;
+    border: 2px solid #007bff;
+  }
+
+  .product-title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+    color: #28a745;
+  }
+  .product-description {
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .carousel-indicators [data-bs-target] {
+    background-color: #007bff;
+  }

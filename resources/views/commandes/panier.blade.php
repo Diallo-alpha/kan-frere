@@ -14,7 +14,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="#">
+            <a href="{{route('accueilCategories')}}">
                 <h1 class="text-success">Kan&frere</h1>
             </a>
         </div>

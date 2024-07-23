@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
 // Route pour afficher la page d'accueil des catégories
 Route::get('/', [ProduitController::class, 'accueilCategories'])->name('accueilCategories');
+Route::get('/produits/{id}/details', [ProduitController::class, 'detaillesProduit'])->name('afficherDetailsProduit');
 
 // Routes pour les commandes (accès public)
 Route::post('/produits/{id}/ajouter', [CommandeController::class, 'ajouterCommande'])->name('commandes.ajouter');
@@ -31,7 +32,6 @@ Route::post('/panier/supprimer/{id}', [CommandeController::class, 'supprimerDuPa
 // Middleware pour vérifier l'authentification et le rôle d'administrateur
 Route::middleware(['auth', 'admin'])->group(function () {
     // Routes des produits
-    Route::get('/produits/{id}/details', [ProduitController::class, 'detaillesProduit'])->name('afficherDetailsProduit');
     Route::get('/produits', [ProduitController::class, 'accueilProduits'])->name('produits.list');
     Route::get('/admins/ajouter', [ProduitController::class, 'ajouterProduit'])->name('ajouterProduit');
     Route::post('/produits', [ProduitController::class, 'ajoutTraitement'])->name('traiterAjoutProduit');

@@ -1,5 +1,7 @@
 
-
+body{
+    background: url('../images/back.jpg') !important;
+}
  .bb-login {
     margin-top: 100px;
     margin-bottom:300px;
@@ -316,7 +318,7 @@ iframe {
     width: 300%;
     height: 100%;
     background: #a64bf4;
-    background: -webkit-linear-gradient(right, #21d4fd, #FF9800, #FFC107, #F44336);
+    background: #48b83e;
     background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
     background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
     background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
